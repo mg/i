@@ -11,55 +11,55 @@ func Range(m, n int) *rng {
 	return &rng{m: m, n: n, cur: m}
 }
 
-func (i *rng) Value() interface{} {
-	return i.cur
+func (r *rng) Value() interface{} {
+	return r.cur
 }
 
-func (i *rng) Int() int {
-	return i.cur
+func (r *rng) Int() int {
+	return r.cur
 }
 
-func (i *rng) Error() error {
-	return i.err
+func (r *rng) Error() error {
+	return r.err
 }
 
-func (i *rng) Next() error {
-	i.cur++
-	return i.err
+func (r *rng) Next() error {
+	r.cur++
+	return r.err
 }
 
-func (i *rng) AtEnd() bool {
-	return i.cur >= i.n
+func (r *rng) AtEnd() bool {
+	return r.cur >= r.n
 }
 
-func (i *rng) Prev() error {
-	i.cur--
+func (r *rng) Prev() error {
+	r.cur--
 	return nil
 }
 
-func (i *rng) AtStart() bool {
-	return i.cur <= i.m
+func (r *rng) AtStart() bool {
+	return r.cur <= r.m
 }
 
-func (i *rng) First() error {
-	i.cur = i.m
+func (r *rng) First() error {
+	r.cur = r.m
 	return nil
 }
 
-func (i *rng) Last() error {
-	i.cur = i.n
+func (r *rng) Last() error {
+	r.cur = r.n
 	return nil
 }
 
-func (i *rng) Goto(idx int) error {
-	if idx < i.m || idx >= i.n {
-		i.err = fmt.Errorf("Index %d out of bounds [%d, %d)", idx, i.m, i.n)
-		return i.err
+func (r *rng) Goto(idx int) error {
+	if idx < r.m || idx >= r.n {
+		r.err = fmt.Errorf("Index %d out of bounds [%d, %d)", idx, r.m, r.n)
+		return r.err
 	}
-	i.cur = idx
+	r.cur = idx
 	return nil
 }
 
-func (i *rng) Len() int {
-	return i.n - i.m
+func (r *rng) Len() int {
+	return r.n - r.m
 }

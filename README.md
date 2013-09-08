@@ -1,4 +1,4 @@
 i
 =
 
-Iterator library for Go
+#This is my iterator lbirary for Go. There are many like it, but this one is mine

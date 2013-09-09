@@ -4,32 +4,22 @@ package i
 type FilterFunc func(Iterator) bool
 
 type filter struct {
-	ff  FilterFunc
-	itr Forward
+	wforward
+	ff FilterFunc
 }
 
 func Filter(ff FilterFunc, itr Forward) Forward {
-	return &filter{ff, itr}
+	f := filter{ff: ff}
+	f.wforward = *(WrapForward(itr))
+	return &f
 }
 
 func (f *filter) AtEnd() bool {
-	for !f.itr.AtEnd() {
-		if f.ff(f.itr) {
+	for !f.wforward.AtEnd() {
+		if f.ff(&f.wforward) {
 			return false
 		}
-		f.itr.Next()
+		f.wforward.Next()
 	}
 	return true
-}
-
-func (f *filter) Next() error {
-	return f.itr.Next()
-}
-
-func (f *filter) Value() interface{} {
-	return f.itr.Value()
-}
-
-func (f *filter) Error() error {
-	return f.itr.Error()
 }

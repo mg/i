@@ -1,25 +1,31 @@
 package i
 
+import "fmt"
+
 // Filter iterator
 type FilterFunc func(Iterator) bool
 
 type filter struct {
-	wforward
+	WForward
 	ff FilterFunc
 }
 
 func Filter(ff FilterFunc, itr Forward) Forward {
 	f := filter{ff: ff}
-	f.wforward = *(WrapForward(itr))
+	f.WForward = *(WrapForward(itr))
 	return &f
 }
 
-func (f *filter) AtEnd() bool {
-	for !f.wforward.AtEnd() {
-		if f.ff(&f.wforward) {
-			return false
-		}
-		f.wforward.Next()
+func (f *filter) Next() error {
+	if f.WForward.AtEnd() {
+		f.WForward.SetError(fmt.Errorf("Calling Next() after end"))
+		return f.WForward.Error()
 	}
-	return true
+	for !f.WForward.AtEnd() {
+		f.WForward.Next()
+		if !f.WForward.AtEnd() && f.ff(&f.WForward) {
+			return nil
+		}
+	}
+	return f.WForward.Error()
 }

@@ -21,8 +21,8 @@ func filterfunc(itr Iterator) bool {
 }
 
 func TestFilter(t *testing.T) {
-	itr := Filter(filterfunc, List(123, true, "this", 45.4, -1, 1+1i))
-	for ; !itr.AtEnd(); itr.Next() {
-		t.Log(itr.Value())
-	}
+	AssertForward(t, Filter(filterfunc, List(123, true, "this", 45.4, -1, 1+1i)), 4, Strict)
+	AssertIteration(
+		t, Filter(filterfunc, List(123, true, "ssss", 45.4, -1, 1+1i)),
+		123, true, 45.4, -1)
 }

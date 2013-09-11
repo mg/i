@@ -21,8 +21,8 @@ func mapfunc(itr Iterator) interface{} {
 }
 
 func TestMap(t *testing.T) {
-	itr := Map(mapfunc, List(123, true, "this", 45.4, -1, 1+1i))
-	for ; !itr.AtEnd(); itr.Next() {
-		t.Log(itr.Value())
-	}
+	AssertForward(t, Map(mapfunc, List(123, true, "this", 45.4, -1, 1+1i)), 6, Strict)
+	AssertIteration(
+		t, Map(mapfunc, List(123, true, "this", 45.4, -1, 1+1i)),
+		"int", "bool", "string", "float64", "int", "unkown")
 }

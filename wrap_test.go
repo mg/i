@@ -5,24 +5,34 @@ import (
 )
 
 func TestWrapForward(t *testing.T) {
-	src := List(1, 2, 3, 4, 5)
-	w1 := WrapForward(src)
-	w2 := WrapForward(w1)
-	for ; !w2.AtEnd(); w2.Next() {
-		t.Log(w2.Value())
-	}
+	list := List(1, 2, 3, 4, 5)
+	AssertForward(t, WrapForward(WrapForward(list)), 5, Strict)
+	list.SetError(nil)
+	list.First()
+	AssertIteration(
+		t, WrapForward(WrapForward(list)),
+		1, 2, 3, 4, 5)
 
-	src.First()
-	w3 := Filter(func(itr Iterator) bool {
+	list.SetError(nil)
+	list.First()
+	w1 := Filter(func(itr Iterator) bool {
 		v, _ := itr.Value().(int)
 		return v < 4
-	}, src)
-	w4 := Map(func(itr Iterator) interface{} {
+	}, list)
+	w2 := Map(func(itr Iterator) interface{} {
 		v, _ := itr.Value().(int)
 		return v * 2
-	}, w3)
-	for ; !w4.AtEnd(); w4.Next() {
-		t.Log(w4.Value())
-	}
-
+	}, w1)
+	AssertForward(t, w2, 3, Strict)
+	list.SetError(nil)
+	list.First()
+	w1 = Filter(func(itr Iterator) bool {
+		v, _ := itr.Value().(int)
+		return v < 4
+	}, list)
+	w2 = Map(func(itr Iterator) interface{} {
+		v, _ := itr.Value().(int)
+		return v * 2
+	}, w1)
+	AssertIteration(t, w2, 2, 4, 6)
 }

@@ -2,57 +2,64 @@ package i
 
 import ()
 
-type wforward struct {
-	value func() interface{}
-	err   func() error
-	next  func() error
-	atEnd func() bool
+type WForward struct {
+	value  func() interface{}
+	err    func() error
+	seterr func(error)
+	next   func() error
+	atEnd  func() bool
 }
 
-func WrapForward(itr Forward) *wforward {
-	wf := wforward{}
-	if wrapped, ok := itr.(*wforward); ok {
+func WrapForward(itr Forward) *WForward {
+	wf := WForward{}
+	if wrapped, ok := itr.(*WForward); ok {
 		wf.value = wrapped.value
 		wf.err = wrapped.err
+		wf.seterr = wrapped.seterr
 		wf.next = wrapped.next
 		wf.atEnd = wrapped.atEnd
 	} else {
 		wf.value = itr.Value
 		wf.err = itr.Error
+		wf.seterr = itr.SetError
 		wf.next = itr.Next
 		wf.atEnd = itr.AtEnd
 	}
 	return &wf
 }
 
-func (wf *wforward) Value() interface{} {
+func (wf *WForward) Value() interface{} {
 	return wf.value()
 }
 
-func (wf *wforward) Error() error {
+func (wf *WForward) Error() error {
 	return wf.err()
 }
 
-func (wf *wforward) Next() error {
+func (wf *WForward) SetError(err error) {
+	wf.seterr(err)
+}
+
+func (wf *WForward) Next() error {
 	return wf.next()
 }
 
-func (wf *wforward) AtEnd() bool {
+func (wf *WForward) AtEnd() bool {
 	return wf.atEnd()
 }
 
 // WrapBiDirectional
-type wbidirectional struct {
-	wforward
+type WBiDirectional struct {
+	WForward
 	prev    func() error
 	atStart func() bool
 }
 
-func WrapBiDirectional(itr BiDirectional) *wbidirectional {
-	wbd := wbidirectional{}
-	wbd.wforward = *(WrapForward(itr))
+func WrapBiDirectional(itr BiDirectional) *WBiDirectional {
+	wbd := WBiDirectional{}
+	wbd.WForward = *(WrapForward(itr))
 
-	if wrapped, ok := itr.(*wbidirectional); ok {
+	if wrapped, ok := itr.(*WBiDirectional); ok {
 		wbd.prev = wrapped.prev
 		wbd.atStart = wrapped.atStart
 	} else {
@@ -63,25 +70,25 @@ func WrapBiDirectional(itr BiDirectional) *wbidirectional {
 	return &wbd
 }
 
-func (wbd *wbidirectional) Prev() error {
+func (wbd *WBiDirectional) Prev() error {
 	return wbd.prev()
 }
 
-func (wbd *wbidirectional) AtStart() bool {
+func (wbd *WBiDirectional) AtStart() bool {
 	return wbd.atStart()
 }
 
 // WrapBoundedAtStart
-type wboundedatstart struct {
-	wforward
+type WBoundedAtStart struct {
+	WForward
 	first func() error
 }
 
-func WrapBoundedAtStart(itr BoundedAtStart) *wboundedatstart {
-	wbas := wboundedatstart{}
-	wbas.wforward = *(WrapForward(itr))
+func WrapBoundedAtStart(itr BoundedAtStart) *WBoundedAtStart {
+	wbas := WBoundedAtStart{}
+	wbas.WForward = *(WrapForward(itr))
 
-	if wrapped, ok := itr.(*wboundedatstart); ok {
+	if wrapped, ok := itr.(*WBoundedAtStart); ok {
 		wbas.first = wrapped.first
 	} else {
 		wbas.first = itr.First
@@ -90,22 +97,22 @@ func WrapBoundedAtStart(itr BoundedAtStart) *wboundedatstart {
 	return &wbas
 }
 
-func (wbas *wboundedatstart) First() error {
+func (wbas *WBoundedAtStart) First() error {
 	return wbas.first()
 }
 
 // WrapBounded
-type wbounded struct {
-	wbidirectional
+type WBounded struct {
+	WBiDirectional
 	first func() error
 	last  func() error
 }
 
-func WrapBounded(itr Bounded) *wbounded {
-	wb := wbounded{}
-	wb.wbidirectional = *(WrapBiDirectional(itr))
+func WrapBounded(itr Bounded) *WBounded {
+	wb := WBounded{}
+	wb.WBiDirectional = *(WrapBiDirectional(itr))
 
-	if wrapped, ok := itr.(*wbounded); ok {
+	if wrapped, ok := itr.(*WBounded); ok {
 		wb.first = wrapped.first
 		wb.last = wrapped.last
 	} else {
@@ -116,26 +123,26 @@ func WrapBounded(itr Bounded) *wbounded {
 	return &wb
 }
 
-func (wb *wbounded) First() error {
+func (wb *WBounded) First() error {
 	return wb.first()
 }
 
-func (wb *wbounded) Last() error {
+func (wb *WBounded) Last() error {
 	return wb.last()
 }
 
 // WrapRandomAccess
-type wrandomaccess struct {
-	wbounded
+type WRandomAccess struct {
+	WBounded
 	goTo   func(int) error
 	length func() int
 }
 
-func WrapRandomAccess(itr RandomAccess) *wrandomaccess {
-	wra := wrandomaccess{}
-	wra.wbounded = *(WrapBounded(itr))
+func WrapRandomAccess(itr RandomAccess) *WRandomAccess {
+	wra := WRandomAccess{}
+	wra.WBounded = *(WrapBounded(itr))
 
-	if wrapped, ok := itr.(*wrandomaccess); ok {
+	if wrapped, ok := itr.(*WRandomAccess); ok {
 		wra.goTo = wrapped.goTo
 		wra.length = wrapped.length
 	} else {
@@ -146,10 +153,10 @@ func WrapRandomAccess(itr RandomAccess) *wrandomaccess {
 	return &wra
 }
 
-func (wra *wrandomaccess) Goto(idx int) error {
+func (wra *WRandomAccess) Goto(idx int) error {
 	return wra.goTo(idx)
 }
 
-func (wra *wrandomaccess) Len() int {
+func (wra *WRandomAccess) Len() int {
 	return wra.length()
 }

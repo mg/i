@@ -4,6 +4,7 @@ type (
 	Iterator interface {
 		Value() interface{}
 		Error() error
+		SetError(error)
 	}
 
 	Forward interface {

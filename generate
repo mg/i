@@ -1,0 +1,362 @@
+#!/usr/bin/env perl -w
+use strict 'vars';
+use Getopt::Std;
+
+sub HELP_MESSAGE {
+	print "generate -w -s -t FILE -p PACKAGE TYPE TYPENAME\n";
+	print "-w: Write to files. Write to STDOUT if ommited.\n";
+	print "-s: Use _adapt suffix for adapter files rather than adapt/ directory.\n";
+	print "-t: Read types from FILE. Each line is on the form TYPE:TYPENAME:FILENAME where both TYPENAME and FILENAME are optional.\n";
+	print "-p: Use PACKAGE for package name. Default is i and adapt.\n";
+	print "\n";
+	print "Common useage:\n";
+	print "generate -p mypack MyStruct               Generates iterators and adapters for type MyStruct in package mypack, prints to STODOUT.\n";
+	print "generate -t mytypes.txt -w -s -p mypack   Generates iterators and adapters for all types defined in mytypes.txt in packagemypack. Writes to files using suffix for adapters.\n";
+	print "generate -p mypack -w -s mytype MyType    Generates iterators and adapters for type mytype in package mypack. Writes to files with adapter suffix, uses MyType for type name,\n"; 
+
+}
+
+# parse command line arguments
+our($opt_w,$opt_t,$opt_p,$opt_s);
+getopts("swt:p:");
+
+my $type = shift; # type from command line
+my $typename = shift; #typename from command line
+if(!$typename && $type) {
+	# if type but no typename use type with first letter uppercase
+	$typename= ucfirst $type;
+}
+
+my $types= "";
+if($opt_t) {
+	# read types from file. assumes that "adapt" directory exists
+	open TYPES, $opt_t;
+	$types= join '', <TYPES>;
+	close TYPES;
+} elsif(!$type) {
+	print "Missing type name\n";
+	exit
+} else {
+	# use type and typenome from command line
+	$types= "$type:$typename";
+}
+
+# set package names, adapter location and adapter file suffix
+my($pack1, $pack2, $pack3, $pack1loc, $pack1suf, $pack2loc, $pack2suf, $pack3loc, $pack3suf)= 
+	("ityped", "iadapt", "islice", "ityped/", "", "iadapt/", "", "islice/", "");
+# use -p value for package names
+if($opt_p) {
+	($pack1, $pack2)= ($opt_p, $opt_p);
+}
+# use _adapt suffix rather than adapt directory for adapters
+if($opt_s) {
+	($pack2loc, $pack2suf)= ("", "_adapt");
+
+}
+
+for(split /^/, $types) {
+	chomp;
+	my($type, $typename, $filename)= split /:/;
+	if($type) {
+		if(!$typename) {
+			$typename= ucfirst $type;
+		}
+		if(!$filename) {
+			$filename= lc $typename;
+		}
+		my $slicename= $typename . "s";
+		my $slicelistname= $typename . "List";
+		my $slicestruct = lc $slicename;
+		my $typenameOr = $typename . "Or";
+
+# genearte interface code
+my $interface = <<EOD;
+// Generated file for $typename iterator
+package $pack1
+
+import (
+	"github.com/mg/i"
+)	
+
+type (
+	// Declare interface for an iterator that has an 
+	// $typename() method that will return the value as $type
+	$typename interface {
+		$typename() $type
+	}
+
+	// Declare forward iterator interface for iterators that 
+	// can return a $type value
+	Forward$typename interface {
+		i.Forward
+		$typename
+	}
+
+	// Declare bidirectional iterator interface for iterators 
+	// that can return a $type value
+	BiDirectional$typename interface {
+		i.BiDirectional
+		$typename
+	}
+
+	// Declare bounded-at-start iterator interface for iterators 
+	// that can return a $type value
+	BoundedAtStart$typename interface {
+		i.BoundedAtStart
+		$typename
+	}
+
+	// Declare bounded iterator interface for iterators 
+	// that can return a $type value
+	Bounded$typename interface {
+		i.Bounded
+		$typename
+	}
+
+	// Declare random access iterator interface for iterators 
+	// that can return a $type value
+	RandomAccess$typename interface {
+		i.RandomAccess
+		$typename
+	}
+)
+EOD
+
+# generate adapter code
+my $adapter = <<EOD;
+//  Generated file for $typename adapter
+package $pack2
+
+import "fmt"
+
+// Adapter for $type types on Forward iterators. Provides a typecasting method 
+// from interface{} to $type.
+// Panics if value is not of $type type.
+func (a *ForwardItr) $typename() $type {
+	v, ok := a.Value().($type)
+	if !ok {
+		panic(fmt.Errorf("Failed to typeassert value %v to $typename.", a.Value()))
+	}
+	return v
+}
+
+// Adapter for $type types on Forward iterators. Provides a typecasting method 
+// from interface{} to $type.
+// Returns (value, false) if type is of $type type.
+// Returns (default value, true) if type is not of $type type.
+func (a *ForwardItr) $typenameOr(def $type) ($type, bool) {
+	v, ok := a.Value().($type)
+	if !ok {
+		return def, true
+	}
+	return v, false
+}
+
+// Adapter for $type types on BiDirectional iterators. Provides a typecasting method 
+// from interface{} to $type.
+// Panics if value is not of $type type.
+func (a *BiDirectionalItr) $typename() $type {
+	v, ok := a.Value().($type)
+	if !ok {
+		panic(fmt.Errorf("Failed to typeassert value %v to $typename.", a.Value()))
+	}
+	return v
+}
+
+// Adapter for $type types on BiDirectional iterators. Provides a typecasting method 
+// from interface{} to $type.
+// Returns (value, false) if type is of $type type.
+// Returns (default value, true) if type is not of $type type.
+func (a *BiDirectionalItr) $typenameOr(def $type) ($type, bool) {
+	v, ok := a.Value().($type)
+	if !ok {
+		return def, true
+	}
+	return v, false
+}
+
+// Adapter for $type types on BoundedAtStart iterators. Provides a typecasting method 
+// from interface{} to $type.
+// Panics if value is not of $type type.
+func (a *BoundedAtStartItr) $typename() $type {
+	v, ok := a.Value().($type)
+	if !ok {
+		panic(fmt.Errorf("Failed to typeassert value %v to $typename.", a.Value()))
+	}
+	return v
+}
+
+// Adapter for $type types on BoundedAtStart iterators. Provides a typecasting method 
+// from interface{} to $type.
+// Returns (value, false) if type is of $type type.
+// Returns (default value, true) if type is not of $type type.
+func (a *BoundedAtStartItr) $typenameOr(def $type) ($type, bool) {
+	v, ok := a.Value().($type)
+	if !ok {
+		return def, true
+	}
+	return v, false
+}
+
+// Adapter for $type types on Bounded iterators. Provides a typecasting method 
+// from interface{} to $type.
+// Panics if value is not of $type type.
+func (a *BoundedItr) $typename() $type {
+	v, ok := a.Value().($type)
+	if !ok {
+		panic(fmt.Errorf("Failed to typeassert value %v to $typename.", a.Value()))
+	}
+	return v
+}
+
+// Adapter for $type types on Bounded iterators. Provides a typecasting method 
+// from interface{} to $type.
+// Returns (value, false) if type is of $type type.
+// Returns (default value, true) if type is not of $type type.
+func (a *BoundedItr) $typenameOr(def $type) ($type, bool) {
+	v, ok := a.Value().($type)
+	if !ok {
+		return def, true
+	}
+	return v, false
+}
+
+// Adapter for $type types on RandomAccess iterator. Provides a typecasting method 
+// from interface{} to $type.
+// Panics if value is not of $type type.
+func (a *RandomAccessItr) $typename() $type {
+	v, ok := a.Value().($type)
+	if !ok {
+		panic(fmt.Errorf("Failed to typeassert value %v to $typename.", a.Value()))
+	}
+	return v
+}
+
+// Adapter for $type types on RandomAccess iterators. Provides a typecasting method 
+// from interface{} to $type.
+// Returns (value, false) if type is of $type type.
+// Returns (default value, true) if type is not of $type type.
+func (a *RandomAccessItr) $typenameOr(def $type) ($type, bool) {
+	v, ok := a.Value().($type)
+	if !ok {
+		return def, true
+	}
+	return v, false
+}
+EOD
+
+# generate slice iterator
+my $slice = <<EOD;
+// []$type iterator
+package $pack3
+
+import (
+	"fmt"
+	"github.com/mg/i"
+)	
+
+type $slicestruct struct {
+	slice []$type
+	pos  int
+	err error
+}
+
+func $slicename(slice []$type) i.RandomAccess {
+	return &$slicestruct {slice: slice, err:nil}
+}
+
+func $slicelistname(v ...$type) i.RandomAccess {
+	return &$slicestruct {slice: v, err:nil}
+}
+
+func (s *$slicestruct) AtStart() bool {
+	return s.pos == 0
+}
+
+func (s *$slicestruct) AtEnd() bool {
+	return s.pos >= len(s.slice)
+}
+
+func (s *$slicestruct) Next() error {
+	if s.pos >= len(s.slice) {
+		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
+	} else {
+		s.pos++
+	}
+	return s.err
+}
+
+func (s *$slicestruct) Prev() error {
+	if s.pos < 0 {
+		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
+	} else {
+		s.pos--
+	}
+	return s.err
+}
+
+func (s *$slicestruct) First() error {
+	s.pos= 0
+	return nil
+}
+
+func (s *$slicestruct) Last() error {
+	s.pos= len(s.slice) - 1
+	return nil
+}
+
+func (s *$slicestruct) Goto(pos int) error {
+	s.pos= pos
+	if s.pos < 0 || s.pos >= len(s.slice) {
+		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
+	}
+	return s.err
+}
+
+func (s *$slicestruct) Len() int {
+	return len(s.slice)
+}
+
+func (s *$slicestruct) Value() interface{} {
+	if s.pos < 0 || s.pos >= len(s.slice) {
+		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
+		return nil
+	}
+	return s.slice[s.pos]
+}
+
+func (s *$slicestruct) $typename() $type {
+	return s.slice[s.pos]
+}
+
+func (s *$slicestruct) Error() error {
+	return s.err
+}
+
+func (s *$slicestruct) SetError(err error) {
+	s.err= err
+}
+
+EOD
+
+		if( !$opt_w ) { 
+			# print to STDOUT
+			print $interface;
+			print $adapter;
+			print $slice;
+		} else {
+			# write to *.go files
+			open(IFILE, ">$pack1loc" . "gen_type_$filename$pack1suf.go");
+			print IFILE $interface;
+			close(IFILE);
+
+			open(AFILE, ">$pack2loc" . "gen_type_$filename$pack2suf.go");
+			print AFILE $adapter;
+			close(AFILE);
+
+			open(SFILE, ">$pack3loc" . "gen_type_$filename$pack3suf.go");
+			print SFILE $slice;
+			close(SFILE);
+		}
+	}
+}

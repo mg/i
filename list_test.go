@@ -22,6 +22,7 @@
 package i
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -35,4 +36,11 @@ func TestInterfaces(t *testing.T) {
 func TestList(t *testing.T) {
 	AssertRandomAccess(t, List(1, "string", 3.56, 4), Strict)
 	AssertIteration(t, List(1, "string", 3.56, 4), 1, "string", 3.56, 4)
+}
+
+func ExampleList() {
+	itr := List(1, 2, "three", "four", 5.5, 6.6)
+	for ; !itr.AtEnd(); itr.Next() {
+		fmt.Println(itr.Value())
+	}
 }

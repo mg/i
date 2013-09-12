@@ -18,8 +18,6 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// []interface{} iterator
 package i
 
 import (
@@ -32,22 +30,27 @@ type iinterfaces struct {
 	err   error
 }
 
+// Create a RandomAccess iterator from a []interface{} type.
 func Interfaces(slice []interface{}) RandomAccess {
 	return &iinterfaces{slice: slice, err: nil}
 }
 
+// Create a RandomAccess iterator from a list of elements.
 func List(list ...interface{}) RandomAccess {
 	return &iinterfaces{slice: list, err: nil}
 }
 
+// Check if the iterator is at the start of the list.
 func (i *iinterfaces) AtStart() bool {
 	return i.pos == 0
 }
 
+// Check if the iterator is beyond the end of the list.
 func (i *iinterfaces) AtEnd() bool {
 	return i.pos >= len(i.slice)
 }
 
+// Move the iterator to the next position in the list.
 func (i *iinterfaces) Next() error {
 	if i.pos >= len(i.slice) {
 		i.err = fmt.Errorf("Next: Index out of bounds: %d.", i.pos)
@@ -57,6 +60,7 @@ func (i *iinterfaces) Next() error {
 	return i.err
 }
 
+// Move the iterator to the previous position in the list.
 func (i *iinterfaces) Prev() error {
 	if i.pos < 0 {
 		i.err = fmt.Errorf("Prev: Index out of bounds: %d.", i.pos)
@@ -66,16 +70,19 @@ func (i *iinterfaces) Prev() error {
 	return i.err
 }
 
+// Jump to the first position in the list.
 func (i *iinterfaces) First() error {
 	i.pos = 0
 	return nil
 }
 
+// Jump to the last position in the list.
 func (i *iinterfaces) Last() error {
 	i.pos = len(i.slice) - 1
 	return nil
 }
 
+// Jump to position pos in the list.
 func (i *iinterfaces) Goto(pos int) error {
 	i.pos = pos
 	if i.pos < 0 || i.pos >= len(i.slice) {
@@ -84,10 +91,12 @@ func (i *iinterfaces) Goto(pos int) error {
 	return i.err
 }
 
+// Return the length of the list.
 func (i *iinterfaces) Len() int {
 	return len(i.slice)
 }
 
+// Return the value at the current position in the list.
 func (i *iinterfaces) Value() interface{} {
 	if i.pos < 0 || i.pos >= len(i.slice) {
 		i.err = fmt.Errorf("Value: Index out of bounds: %d.", i.pos)
@@ -96,10 +105,12 @@ func (i *iinterfaces) Value() interface{} {
 	return i.slice[i.pos]
 }
 
+// Return last error occurred.
 func (i *iinterfaces) Error() error {
 	return i.err
 }
 
+// Set the error to err.
 func (i *iinterfaces) SetError(err error) {
 	i.err = err
 }

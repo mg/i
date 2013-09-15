@@ -27,7 +27,16 @@ import (
 	"time"
 )
 
-// Random iterator
+// Rrnd is an random access iterator that generates random numbers each time
+// it is moved with Next(), Prev(), Last() or Goto(). Those number are then
+// available through the Value() method (or the Foat64() or Int64() methods).
+// The First() method will reset the random sequence to its originating seed
+// value. It comes in two variants, Rand() which generates random floating
+// numbers between 0 and 1, and RandInt(n) which generates random integers
+// between 0 and n. The custom Seed() and SetSeed() methods can be used
+// to save a random sequence and then rerun it at a later time. The stream of
+// numbers is infinite in both directions, the AtStart() method and AtEnd()
+// method always return false.
 type Rnd struct {
 	seed int64
 	cur  interface{}
@@ -57,7 +66,7 @@ func (r *Rnd) First() error {
 }
 
 func (r *Rnd) Last() error {
-	return nil
+	return r.Next()
 }
 
 func (r *Rnd) AtEnd() bool {
@@ -105,6 +114,9 @@ func (r *Rnd) Int64() int64 {
 
 func (r *Rnd) Error() error {
 	return nil
+}
+
+func (r *Rnd) SetError(err error) {
 }
 
 func (r *Rnd) SetSeed(seed int64) {

@@ -22,6 +22,7 @@
 package igen
 
 import (
+	"fmt"
 	"github.com/mg/i/itesting"
 	"testing"
 )
@@ -29,4 +30,14 @@ import (
 func TestRange(t *testing.T) {
 	itesting.AssertRandomAccess(t, Range(5, 10), itesting.Strict)
 	itesting.AssertIteration(t, Range(5, 10), 5, 6, 7, 8, 9)
+}
+
+func ExampleRange() {
+	// Define range
+	itrRange := Range(1, 10)
+
+	// Print out range, will print out the series 1,2,3,4,5,6,7,8,9
+	for ; !itrRange.AtEnd(); itrRange.Next() {
+		fmt.Printf("%v,", itrRange.Value())
+	}
 }

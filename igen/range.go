@@ -31,6 +31,8 @@ type rng struct {
 	err       error
 }
 
+// The Range iterator generates a range of number from m to n, not including
+// n. It is a random access iterator.
 func Range(m, n int) ityped.RandomAccessInt {
 	return &rng{m: m, n: n, cur: m}
 }

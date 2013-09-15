@@ -25,6 +25,7 @@ import (
 	"fmt"
 	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"math"
 	"testing"
 )
@@ -46,8 +47,8 @@ func mapfunc(itr i.Iterator) interface{} {
 }
 
 func TestMap(t *testing.T) {
-	i.AssertForward(t, Map(mapfunc, icon.List(123, true, "this", 45.4, -1, 1+1i)), 6, i.Strict)
-	i.AssertIteration(
+	itesting.AssertForward(t, Map(mapfunc, icon.List(123, true, "this", 45.4, -1, 1+1i)), 6, itesting.Strict)
+	itesting.AssertIteration(
 		t, Map(mapfunc, icon.List(123, true, "this", 45.4, -1, 1+1i)),
 		"int", "bool", "string", "float64", "int", "unkown")
 }

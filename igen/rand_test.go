@@ -22,6 +22,7 @@
 package igen
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -31,4 +32,16 @@ func TestRand(t *testing.T) {
 		t.Log(itr.Value())
 		itr.Next()
 	}
+}
+
+func ExampleRand() {
+	// Create a random generating iterator that generates values between 0 and 1
+	itrRandom := Rand()
+
+	// Print out 10 random numbers
+	for i := 0; i < 10; i++ {
+		fmt.Println(itrRandom.Value())
+		itrRandom.Next()
+	}
+
 }

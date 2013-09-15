@@ -19,9 +19,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package itesting
 
 import (
+	"github.com/mg/i"
 	"testing"
 )
 
@@ -51,7 +52,7 @@ func isRelaxValueEqual(strictness int) bool {
 
 // Make assertions that must hold for Forward iterators.
 // If the datastream is infite, pass -1 for count.
-func AssertForward(t *testing.T, itr Forward, count, strictness int) {
+func AssertForward(t *testing.T, itr i.Forward, count, strictness int) {
 
 	// Go for 10 iterations if stream is infinite
 	length := 10
@@ -118,7 +119,7 @@ func AssertForward(t *testing.T, itr Forward, count, strictness int) {
 
 // Make assertions that must hold for BiDirectional iterators.
 // If the datastream is infite, pass -1 for count.
-func AssertBiDirectional(t *testing.T, itr BiDirectional, count, strictness int) {
+func AssertBiDirectional(t *testing.T, itr i.BiDirectional, count, strictness int) {
 
 	// Go for 10 iterations if stream is infinite
 	length := 10
@@ -201,7 +202,7 @@ func AssertBiDirectional(t *testing.T, itr BiDirectional, count, strictness int)
 
 // Make assertions that must hold for BoundedAtStart iterators.
 // If the datastream is infite, pass -1 for count.
-func AssertBoundedAtStart(t *testing.T, itr BoundedAtStart, count, strictness int) {
+func AssertBoundedAtStart(t *testing.T, itr i.BoundedAtStart, count, strictness int) {
 	// Iterator should pass all tests for Forward iterators twice
 	AssertForward(t, itr, count, strictness)
 	itr.First()
@@ -209,7 +210,7 @@ func AssertBoundedAtStart(t *testing.T, itr BoundedAtStart, count, strictness in
 }
 
 // Make assertions that must hold for BoundedAtStart iterators.
-func AssertBounded(t *testing.T, itr Bounded, count, strictness int) {
+func AssertBounded(t *testing.T, itr i.Bounded, count, strictness int) {
 	itr.Last()
 	itr.Next()
 	// Check if iterator is at end
@@ -225,13 +226,13 @@ func AssertBounded(t *testing.T, itr Bounded, count, strictness int) {
 }
 
 // Make assertions that must hold for RandomAccess iterators.
-func AssertRandomAccess(t *testing.T, itr RandomAccess, strictness int) {
+func AssertRandomAccess(t *testing.T, itr i.RandomAccess, strictness int) {
 	AssertBounded(t, itr, itr.Len(), strictness)
 
 }
 
 // Make assertions of iterations
-func AssertIteration(t *testing.T, itr Forward, values ...interface{}) {
+func AssertIteration(t *testing.T, itr i.Forward, values ...interface{}) {
 	for i, v := range values {
 		v2 := itr.Value()
 		if v != v2 {

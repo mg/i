@@ -23,14 +23,14 @@ package hoi
 
 import (
 	"fmt"
-	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
 func TestReverse(t *testing.T) {
-	i.AssertForward(t, Reverse(icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)), 9, i.Strict)
-	i.AssertIteration(
+	itesting.AssertForward(t, Reverse(icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)), 9, itesting.Strict)
+	itesting.AssertIteration(
 		t, Reverse(icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)),
 		9, 8, 7, 6, 5, 4, 3, 2, 1)
 }

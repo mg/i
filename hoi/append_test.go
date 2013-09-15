@@ -23,8 +23,8 @@ package hoi
 
 import (
 	"fmt"
-	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
@@ -33,9 +33,9 @@ func TestAppend(t *testing.T) {
 	list2 := icon.List(1, 2, 3)
 	list3 := icon.List(1.1, 2.2, 3.3)
 
-	i.AssertForward(t, Append(list1, list2, list3), 9, i.Strict)
+	itesting.AssertForward(t, Append(list1, list2, list3), 9, itesting.Strict)
 
-	i.AssertIteration(t,
+	itesting.AssertIteration(t,
 		Append(icon.List(1, 2), icon.List("one", "two")),
 		1, 2, "one", "two")
 }

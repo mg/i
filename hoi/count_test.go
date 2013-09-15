@@ -23,16 +23,16 @@ package hoi
 
 import (
 	"fmt"
-	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
 func TestCount(t *testing.T) {
 	list := icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)
-	i.AssertForward(t, Count(5, list), 5, i.Strict)
+	itesting.AssertForward(t, Count(5, list), 5, itesting.Strict)
 	list.First()
-	i.AssertIteration(t, Count(5, list), 1, 2, 3, 4, 5)
+	itesting.AssertIteration(t, Count(5, list), 1, 2, 3, 4, 5)
 }
 
 func ExmapleCount() {

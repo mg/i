@@ -23,14 +23,14 @@ package hoi
 
 import (
 	"fmt"
-	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
 func TestRepeat(t *testing.T) {
-	i.AssertForward(t, Repeat(3, icon.List(0, 1, 2)), 3*3, i.Strict)
-	i.AssertIteration(
+	itesting.AssertForward(t, Repeat(3, icon.List(0, 1, 2)), 3*3, itesting.Strict)
+	itesting.AssertIteration(
 		t, Repeat(3, icon.List(0, 1, 2)),
 		0, 0, 0, 1, 1, 1, 2, 2, 2)
 }

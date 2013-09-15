@@ -25,6 +25,7 @@ import (
 	"fmt"
 	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
@@ -33,15 +34,15 @@ func foldfunc(v interface{}, i i.Iterator) interface{} {
 }
 
 func TestFoldl(t *testing.T) {
-	i.AssertForward(t, Foldl(foldfunc, 1, icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)), 9, i.Strict)
-	i.AssertIteration(
+	itesting.AssertForward(t, Foldl(foldfunc, 1, icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)), 9, itesting.Strict)
+	itesting.AssertIteration(
 		t, Foldl(foldfunc, 1, icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)),
 		2, 4, 7, 11, 16, 22, 29, 37, 46)
 }
 
 func TestFoldr(t *testing.T) {
-	i.AssertForward(t, Foldr(foldfunc, 1, icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)), 9, i.Strict)
-	i.AssertIteration(
+	itesting.AssertForward(t, Foldr(foldfunc, 1, icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)), 9, itesting.Strict)
+	itesting.AssertIteration(
 		t, Foldr(foldfunc, 1, icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)),
 		10, 18, 25, 31, 36, 40, 43, 45, 46)
 }

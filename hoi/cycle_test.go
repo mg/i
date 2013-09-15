@@ -23,17 +23,17 @@ package hoi
 
 import (
 	"fmt"
-	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
 func TestCycle(t *testing.T) {
 	list := icon.List(0, 1, 2)
 
-	i.AssertForward(t, Cycle(list), -1, i.Strict)
+	itesting.AssertForward(t, Cycle(list), -1, itesting.Strict)
 	list.First()
-	i.AssertIteration(t, Cycle(list), 0, 1, 2, 0, 1, 2, 0, 1, 2)
+	itesting.AssertIteration(t, Cycle(list), 0, 1, 2, 0, 1, 2, 0, 1, 2)
 }
 
 func ExampleCycle() {

@@ -22,14 +22,14 @@
 package iadapt
 
 import (
-	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
 func TestAdapt(t *testing.T) {
 	list := icon.IntList(1, 2, 3, 4, 5, 6, 7, 8, 9)
-	i.AssertForward(t, Forward(list), 9, i.Strict)
+	itesting.AssertForward(t, Forward(list), 9, itesting.Strict)
 	list.First()
-	i.AssertIteration(t, Forward(list), 1, 2, 3, 4, 5, 6, 7, 8, 9)
+	itesting.AssertIteration(t, Forward(list), 1, 2, 3, 4, 5, 6, 7, 8, 9)
 }

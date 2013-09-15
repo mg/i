@@ -23,21 +23,21 @@ package hoi
 
 import (
 	"fmt"
-	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
 func TestSample(t *testing.T) {
 	list := icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)
 	itr := Sample(list)
-	i.AssertForward(t, itr, -1, i.Strict)
+	itesting.AssertForward(t, itr, -1, itesting.Strict)
 }
 
 func TestShuffle(t *testing.T) {
 	list := icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)
 	itr := Shuffle(list)
-	i.AssertForward(t, itr, 9, i.RelaxValueAtEnd)
+	itesting.AssertForward(t, itr, 9, itesting.RelaxValueAtEnd)
 }
 
 func ExampleSample() {

@@ -23,14 +23,14 @@ package hoi
 
 import (
 	"fmt"
-	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
 func TestSlice(t *testing.T) {
-	i.AssertRandomAccess(t, Slice(4, 8, icon.List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)), i.RelaxValueAtEnd)
-	i.AssertIteration(
+	itesting.AssertRandomAccess(t, Slice(4, 8, icon.List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)), itesting.RelaxValueAtEnd)
+	itesting.AssertIteration(
 		t, Slice(4, 8, icon.List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)),
 		4, 5, 6, 7)
 }

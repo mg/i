@@ -23,8 +23,8 @@ package hoi
 
 import (
 	"fmt"
-	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
@@ -33,15 +33,15 @@ func TestZip(t *testing.T) {
 		icon.List(1, 2, 3, 4, 5, 6),
 		icon.List(6.4, 7.1, 8.2, 9.9),
 		icon.List("A", "B", "C", "D", "E"))
-	i.AssertForward(t, itr, 4, i.RelaxValueEqual)
+	itesting.AssertForward(t, itr, 4, itesting.RelaxValueEqual)
 }
 
 func TestZipLongest(t *testing.T) {
-	i.AssertForward(t, ZipLongest(
+	itesting.AssertForward(t, ZipLongest(
 		icon.List(1, 2, 3, 4, 5, 6),
 		icon.List(6.4, 7.1, 8.2, 9.9),
 		icon.List("A", "B", "C", "D", "E")),
-		6, i.RelaxValueEqual)
+		6, itesting.RelaxValueEqual)
 }
 
 func ExampleZip() {

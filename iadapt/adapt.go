@@ -21,54 +21,57 @@
 
 package iadapt
 
-import "github.com/mg/i"
+import (
+	"github.com/mg/i"
+	"github.com/mg/i/itk"
+)
 
 type ForwardItr struct {
-	i.WForward
+	itk.WForward
 }
 
 func Forward(itr i.Forward) *ForwardItr {
 	f := ForwardItr{}
-	f.WForward = *(i.WrapForward(itr))
+	f.WForward = *(itk.WrapForward(itr))
 	return &f
 }
 
 type BoundedAtStartItr struct {
-	i.WBoundedAtStart
+	itk.WBoundedAtStart
 }
 
 func BoundedAtStart(itr i.BoundedAtStart) *BoundedAtStartItr {
 	b := BoundedAtStartItr{}
-	b.WBoundedAtStart = *(i.WrapBoundedAtStart(itr))
+	b.WBoundedAtStart = *(itk.WrapBoundedAtStart(itr))
 	return &b
 }
 
 type BiDirectionalItr struct {
-	i.WBiDirectional
+	itk.WBiDirectional
 }
 
 func BiDirectional(itr i.BiDirectional) *BiDirectionalItr {
 	b := BiDirectionalItr{}
-	b.WBiDirectional = *(i.WrapBiDirectional(itr))
+	b.WBiDirectional = *(itk.WrapBiDirectional(itr))
 	return &b
 }
 
 type BoundedItr struct {
-	i.WBounded
+	itk.WBounded
 }
 
 func Bounded(itr i.Bounded) *BoundedItr {
 	b := BoundedItr{}
-	b.WBounded = *(i.WrapBounded(itr))
+	b.WBounded = *(itk.WrapBounded(itr))
 	return &b
 }
 
 type RandomAccessItr struct {
-	i.WRandomAccess
+	itk.WRandomAccess
 }
 
 func RandomAccess(itr i.RandomAccess) *RandomAccessItr {
 	r := RandomAccessItr{}
-	r.WRandomAccess = *(i.WrapRandomAccess(itr))
+	r.WRandomAccess = *(itk.WrapRandomAccess(itr))
 	return &r
 }

@@ -19,16 +19,25 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
 import (
+	"github.com/mg/i"
 	"testing"
 )
 
-func TestEach(t *testing.T) {
-	itr := List("one", "two", "three")
-	Each(itr, func(i Iterator) bool {
-		t.Log(itr.Value())
-		return true
-	})
+func TestZip(t *testing.T) {
+	itr := Zip(
+		List(1, 2, 3, 4, 5, 6),
+		List(6.4, 7.1, 8.2, 9.9),
+		List("A", "B", "C", "D", "E"))
+	i.AssertForward(t, itr, 4, i.RelaxValueEqual)
+}
+
+func TestZipLongest(t *testing.T) {
+	i.AssertForward(t, ZipLongest(
+		List(1, 2, 3, 4, 5, 6),
+		List(6.4, 7.1, 8.2, 9.9),
+		List("A", "B", "C", "D", "E")),
+		6, i.RelaxValueEqual)
 }

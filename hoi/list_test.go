@@ -19,31 +19,29 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
-// Map iterator
-type MapFunc func(Iterator) interface{}
+import (
+	"fmt"
+	"github.com/mg/i"
+	"testing"
+)
 
-type imap struct {
-	WForward
-	fmap MapFunc
-	val  interface{}
+func TestInterfaces(t *testing.T) {
+	i.AssertRandomAccess(t, Interfaces([]interface{}{1, "string", 3.56, 4}), i.Strict)
+	i.AssertIteration(
+		t, Interfaces([]interface{}{1, "string", 3.56, 4}),
+		1, "string", 3.56, 4)
 }
 
-func Map(fmap MapFunc, itr Forward) Forward {
-	m := imap{fmap: fmap}
-	m.WForward = *(WrapForward(itr))
-	return &m
+func TestList(t *testing.T) {
+	i.AssertRandomAccess(t, List(1, "string", 3.56, 4), i.Strict)
+	i.AssertIteration(t, List(1, "string", 3.56, 4), 1, "string", 3.56, 4)
 }
 
-func (m *imap) Next() error {
-	m.val = nil
-	return m.WForward.Next()
-}
-
-func (m *imap) Value() interface{} {
-	if m.val == nil {
-		m.val = m.fmap(&m.WForward)
+func ExampleList() {
+	itr := List(1, 2, "three", "four", 5.5, 6.6)
+	for ; !itr.AtEnd(); itr.Next() {
+		fmt.Println(itr.Value())
 	}
-	return m.val
 }

@@ -19,31 +19,41 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package itk
 
 import (
 	"testing"
 )
 
-func filterfunc(itr Iterator) bool {
-	if _, ok := itr.Value().(bool); ok {
-		return true
-	}
-	if _, ok := itr.Value().(int); ok {
-		return true
-	}
-	if _, ok := itr.Value().(string); ok {
-		return false
-	}
-	if _, ok := itr.Value().(float64); ok {
-		return true
-	}
-	return false
-}
-
-func TestFilter(t *testing.T) {
-	AssertForward(t, Filter(filterfunc, List(123, true, "this", 45.4, -1, 1+1i)), 4, Strict)
+func TestWrapForward(t *testing.T) {
+	/*list := List(1, 2, 3, 4, 5)
+	AssertForward(t, WrapForward(WrapForward(list)), 5, Strict)
+	list.SetError(nil)
+	list.First()
 	AssertIteration(
-		t, Filter(filterfunc, List(123, true, "ssss", 45.4, -1, 1+1i)),
-		123, true, 45.4, -1)
+		t, WrapForward(WrapForward(list)),
+		1, 2, 3, 4, 5)
+
+	list.SetError(nil)
+	list.First()
+	w1 := Filter(func(itr Iterator) bool {
+		v, _ := itr.Value().(int)
+		return v < 4
+	}, list)
+	w2 := Map(func(itr Iterator) interface{} {
+		v, _ := itr.Value().(int)
+		return v * 2
+	}, w1)
+	AssertForward(t, w2, 3, Strict)
+	list.SetError(nil)
+	list.First()
+	w1 = Filter(func(itr Iterator) bool {
+		v, _ := itr.Value().(int)
+		return v < 4
+	}, list)
+	w2 = Map(func(itr Iterator) interface{} {
+		v, _ := itr.Value().(int)
+		return v * 2
+	}, w1)
+	AssertIteration(t, w2, 2, 4, 6)*/
 }

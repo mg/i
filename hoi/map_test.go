@@ -19,20 +19,32 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
 import (
+	"github.com/mg/i"
 	"testing"
 )
 
-func TestAppend(t *testing.T) {
-	list1 := List("one", "two", "three")
-	list2 := List(1, 2, 3)
-	list3 := List(1.1, 2.2, 3.3)
+func mapfunc(itr i.Iterator) interface{} {
+	if _, ok := itr.Value().(bool); ok {
+		return "bool"
+	}
+	if _, ok := itr.Value().(int); ok {
+		return "int"
+	}
+	if _, ok := itr.Value().(string); ok {
+		return "string"
+	}
+	if _, ok := itr.Value().(float64); ok {
+		return "float64"
+	}
+	return "unkown"
+}
 
-	AssertForward(t, Append(list1, list2, list3), 9, Strict)
-
-	AssertIteration(t,
-		Append(List(1, 2), List("one", "two")),
-		1, 2, "one", "two")
+func TestMap(t *testing.T) {
+	i.AssertForward(t, Map(mapfunc, List(123, true, "this", 45.4, -1, 1+1i)), 6, i.Strict)
+	i.AssertIteration(
+		t, Map(mapfunc, List(123, true, "this", 45.4, -1, 1+1i)),
+		"int", "bool", "string", "float64", "int", "unkown")
 }

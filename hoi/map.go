@@ -19,24 +19,36 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
 import (
-	"testing"
+	"github.com/mg/i"
+	"github.com/mg/i/itk"
 )
 
-func TestZip(t *testing.T) {
-	itr := Zip(
-		List(1, 2, 3, 4, 5, 6),
-		List(6.4, 7.1, 8.2, 9.9),
-		List("A", "B", "C", "D", "E"))
-	AssertForward(t, itr, 4, RelaxValueEqual)
+// Map iterator
+type MapFunc func(i.Iterator) interface{}
+
+type imap struct {
+	itk.WForward
+	fmap MapFunc
+	val  interface{}
 }
 
-func TestZipLongest(t *testing.T) {
-	AssertForward(t, ZipLongest(
-		List(1, 2, 3, 4, 5, 6),
-		List(6.4, 7.1, 8.2, 9.9),
-		List("A", "B", "C", "D", "E")),
-		6, RelaxValueEqual)
+func Map(fmap MapFunc, itr i.Forward) i.Forward {
+	m := imap{fmap: fmap}
+	m.WForward = *(itk.WrapForward(itr))
+	return &m
+}
+
+func (m *imap) Next() error {
+	m.val = nil
+	return m.WForward.Next()
+}
+
+func (m *imap) Value() interface{} {
+	if m.val == nil {
+		m.val = m.fmap(&m.WForward)
+	}
+	return m.val
 }

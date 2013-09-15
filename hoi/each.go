@@ -19,13 +19,15 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
-type EachFunc func(i Iterator) bool
+import "github.com/mg/i"
 
-func Each(i Forward, e EachFunc) {
-	for ; !i.AtEnd(); i.Next() {
-		if !e(i) {
+type EachFunc func(itr i.Iterator) bool
+
+func Each(itr i.Forward, e EachFunc) {
+	for ; !itr.AtEnd(); itr.Next() {
+		if !e(itr) {
 			break
 		}
 	}

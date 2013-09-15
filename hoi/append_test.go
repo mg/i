@@ -19,28 +19,21 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
 import (
-	"fmt"
+	"github.com/mg/i"
 	"testing"
 )
 
-func TestInterfaces(t *testing.T) {
-	AssertRandomAccess(t, Interfaces([]interface{}{1, "string", 3.56, 4}), Strict)
-	AssertIteration(
-		t, Interfaces([]interface{}{1, "string", 3.56, 4}),
-		1, "string", 3.56, 4)
-}
+func TestAppend(t *testing.T) {
+	list1 := List("one", "two", "three")
+	list2 := List(1, 2, 3)
+	list3 := List(1.1, 2.2, 3.3)
 
-func TestList(t *testing.T) {
-	AssertRandomAccess(t, List(1, "string", 3.56, 4), Strict)
-	AssertIteration(t, List(1, "string", 3.56, 4), 1, "string", 3.56, 4)
-}
+	i.AssertForward(t, Append(list1, list2, list3), 9, i.Strict)
 
-func ExampleList() {
-	itr := List(1, 2, "three", "four", 5.5, 6.6)
-	for ; !itr.AtEnd(); itr.Next() {
-		fmt.Println(itr.Value())
-	}
+	i.AssertIteration(t,
+		Append(List(1, 2), List("one", "two")),
+		1, 2, "one", "two")
 }

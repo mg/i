@@ -19,66 +19,38 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/mg/i"
+	"github.com/mg/i/itk"
+)
 
-// Append iterator
-type iappend struct {
-	itrs []Forward
-	pos  int
-	err  error
+// Filter iterator
+type FilterFunc func(i.Iterator) bool
+
+type filter struct {
+	itk.WForward
+	ff FilterFunc
 }
 
-func Append(itrs ...Forward) Forward {
-	return &iappend{itrs: itrs}
+func Filter(ff FilterFunc, itr i.Forward) i.Forward {
+	f := filter{ff: ff}
+	f.WForward = *(itk.WrapForward(itr))
+	return &f
 }
 
-func (a *iappend) AtEnd() bool {
-	if a.pos < len(a.itrs)-1 {
-		return false
-	} else if a.pos >= len(a.itrs) {
-		return true
+func (f *filter) Next() error {
+	if f.WForward.AtEnd() {
+		f.WForward.SetError(fmt.Errorf("Calling Next() after end"))
+		return f.WForward.Error()
 	}
-	return a.itrs[a.pos].AtEnd()
-}
-
-func (a *iappend) Next() error {
-	if a.pos >= len(a.itrs) {
-		a.err = fmt.Errorf("Appending beyond last iterator")
-		return a.err
-	}
-	a.itrs[a.pos].Next()
-	for a.itrs[a.pos].AtEnd() {
-		a.pos++
-		if a.pos >= len(a.itrs) {
+	for !f.WForward.AtEnd() {
+		f.WForward.Next()
+		if !f.WForward.AtEnd() && f.ff(&f.WForward) {
 			return nil
 		}
 	}
-	return nil
-}
-
-func (a *iappend) Value() interface{} {
-	if a.AtEnd() {
-		a.err = fmt.Errorf("Fetching value beyond last iterator")
-		return nil
-	}
-	return a.itrs[a.pos].Value()
-}
-
-func (a *iappend) Error() error {
-	if a.err != nil {
-		return a.err
-	}
-	for _, v := range a.itrs {
-		err := v.Error()
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (a *iappend) SetError(err error) {
-	a.err = err
+	return f.WForward.Error()
 }

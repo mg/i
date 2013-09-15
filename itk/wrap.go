@@ -19,9 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package itk
 
-import ()
+import (
+	"github.com/mg/i"
+)
 
 type WForward struct {
 	value  func() interface{}
@@ -31,7 +33,7 @@ type WForward struct {
 	atEnd  func() bool
 }
 
-func WrapForward(itr Forward) *WForward {
+func WrapForward(itr i.Forward) *WForward {
 	wf := WForward{}
 	if wrapped, ok := itr.(*WForward); ok {
 		wf.value = wrapped.value
@@ -76,7 +78,7 @@ type WBiDirectional struct {
 	atStart func() bool
 }
 
-func WrapBiDirectional(itr BiDirectional) *WBiDirectional {
+func WrapBiDirectional(itr i.BiDirectional) *WBiDirectional {
 	wbd := WBiDirectional{}
 	wbd.WForward = *(WrapForward(itr))
 
@@ -105,7 +107,7 @@ type WBoundedAtStart struct {
 	first func() error
 }
 
-func WrapBoundedAtStart(itr BoundedAtStart) *WBoundedAtStart {
+func WrapBoundedAtStart(itr i.BoundedAtStart) *WBoundedAtStart {
 	wbas := WBoundedAtStart{}
 	wbas.WForward = *(WrapForward(itr))
 
@@ -129,7 +131,7 @@ type WBounded struct {
 	last  func() error
 }
 
-func WrapBounded(itr Bounded) *WBounded {
+func WrapBounded(itr i.Bounded) *WBounded {
 	wb := WBounded{}
 	wb.WBiDirectional = *(WrapBiDirectional(itr))
 
@@ -159,7 +161,7 @@ type WRandomAccess struct {
 	length func() int
 }
 
-func WrapRandomAccess(itr RandomAccess) *WRandomAccess {
+func WrapRandomAccess(itr i.RandomAccess) *WRandomAccess {
 	wra := WRandomAccess{}
 	wra.WBounded = *(WrapBounded(itr))
 

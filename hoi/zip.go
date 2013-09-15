@@ -19,17 +19,20 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/mg/i"
+)
 
 type zip struct {
-	itrs  []Forward
+	itrs  []i.Forward
 	err   error
 	atEnd bool
 }
 
-func Zip(itrs ...Forward) Forward {
+func Zip(itrs ...i.Forward) i.Forward {
 	return &zip{itrs: itrs}
 }
 
@@ -84,7 +87,7 @@ type ziplongest struct {
 	zip
 }
 
-func ZipLongest(itrs ...Forward) Forward {
+func ZipLongest(itrs ...i.Forward) i.Forward {
 	return &ziplongest{zip{itrs: itrs}}
 }
 

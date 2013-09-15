@@ -19,10 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
 import (
 	"fmt"
+	"github.com/mg/i"
 )
 
 type iinterfaces struct {
@@ -32,12 +33,12 @@ type iinterfaces struct {
 }
 
 // Create a RandomAccess iterator from a []interface{} type.
-func Interfaces(slice []interface{}) RandomAccess {
+func Interfaces(slice []interface{}) i.RandomAccess {
 	return &iinterfaces{slice: slice, err: nil}
 }
 
 // Create a RandomAccess iterator from a list of elements.
-func List(list ...interface{}) RandomAccess {
+func List(list ...interface{}) i.RandomAccess {
 	return &iinterfaces{slice: list, err: nil}
 }
 

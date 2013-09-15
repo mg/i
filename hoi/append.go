@@ -19,31 +19,69 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package i
+package hoi
 
 import (
-	"testing"
+	"fmt"
+	"github.com/mg/i"
 )
 
-func mapfunc(itr Iterator) interface{} {
-	if _, ok := itr.Value().(bool); ok {
-		return "bool"
-	}
-	if _, ok := itr.Value().(int); ok {
-		return "int"
-	}
-	if _, ok := itr.Value().(string); ok {
-		return "string"
-	}
-	if _, ok := itr.Value().(float64); ok {
-		return "float64"
-	}
-	return "unkown"
+// Append iterator
+type iappend struct {
+	itrs []i.Forward
+	pos  int
+	err  error
 }
 
-func TestMap(t *testing.T) {
-	AssertForward(t, Map(mapfunc, List(123, true, "this", 45.4, -1, 1+1i)), 6, Strict)
-	AssertIteration(
-		t, Map(mapfunc, List(123, true, "this", 45.4, -1, 1+1i)),
-		"int", "bool", "string", "float64", "int", "unkown")
+func Append(itrs ...i.Forward) i.Forward {
+	return &iappend{itrs: itrs}
+}
+
+func (a *iappend) AtEnd() bool {
+	if a.pos < len(a.itrs)-1 {
+		return false
+	} else if a.pos >= len(a.itrs) {
+		return true
+	}
+	return a.itrs[a.pos].AtEnd()
+}
+
+func (a *iappend) Next() error {
+	if a.pos >= len(a.itrs) {
+		a.err = fmt.Errorf("Appending beyond last iterator")
+		return a.err
+	}
+	a.itrs[a.pos].Next()
+	for a.itrs[a.pos].AtEnd() {
+		a.pos++
+		if a.pos >= len(a.itrs) {
+			return nil
+		}
+	}
+	return nil
+}
+
+func (a *iappend) Value() interface{} {
+	if a.AtEnd() {
+		a.err = fmt.Errorf("Fetching value beyond last iterator")
+		return nil
+	}
+	return a.itrs[a.pos].Value()
+}
+
+func (a *iappend) Error() error {
+	if a.err != nil {
+		return a.err
+	}
+	for _, v := range a.itrs {
+		err := v.Error()
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (a *iappend) SetError(err error) {
+	a.err = err
 }

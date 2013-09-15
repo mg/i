@@ -22,7 +22,7 @@
 // Package i is an higher order library for Go that focuses on using iterators
 // as an common interface for computation.
 //
-// The i library definecs the following interfaces for iterators:
+// The i library defines the following interfaces for iterators:
 //
 //	type Iterator interface {
 //		Value() interface{}

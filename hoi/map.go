@@ -26,7 +26,8 @@ import (
 	"github.com/mg/i/itk"
 )
 
-// Map iterator
+// A function that will provide the mapping computation for
+// the Map iterator.
 type MapFunc func(i.Iterator) interface{}
 
 type imap struct {
@@ -35,6 +36,9 @@ type imap struct {
 	val  interface{}
 }
 
+// A map iterator that maps a underlying data stream to a new
+// data stream according to the computation provied by the
+// mapping function.
 func Map(fmap MapFunc, itr i.Forward) i.Forward {
 	m := imap{fmap: fmap}
 	m.WForward = *(itk.WrapForward(itr))

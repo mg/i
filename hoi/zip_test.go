@@ -22,6 +22,7 @@
 package hoi
 
 import (
+	"fmt"
 	"github.com/mg/i"
 	"github.com/mg/i/icon"
 	"testing"
@@ -41,4 +42,32 @@ func TestZipLongest(t *testing.T) {
 		icon.List(6.4, 7.1, 8.2, 9.9),
 		icon.List("A", "B", "C", "D", "E")),
 		6, i.RelaxValueEqual)
+}
+
+func ExampleZip() {
+	// The data streams
+	list1 := icon.List(1, 2, 3)
+	list2 := icon.List("one", "two", "three")
+	list3 := icon.List(10, 11, 12, 13)
+
+	// The Zip iterator
+	itrZip := Zip(list1, list2, list3)
+	for ; !itrZip.AtEnd(); itrZip.Next() {
+		// Prints out: [[1,"one",10], [2,"two",11], [3,"three",12]]
+		fmt.Printf("%v, ", itrZip.Value())
+	}
+}
+
+func ExampleZipLongest() {
+	// The data streams
+	list1 := icon.List(1, 2, 3)
+	list2 := icon.List("one", "two", "three")
+	list3 := icon.List(10, 11, 12, 13)
+
+	// The Zip iterator
+	itrZipLongest := ZipLongest(list1, list2, list3)
+	for ; !itrZipLongest.AtEnd(); itrZipLongest.Next() {
+		// Prints out: [[1,"one",10], [2,"two",11], [3,"three",12], [nil,nil,13]]
+		fmt.Printf("%v, ", itrZipLongest.Value())
+	}
 }

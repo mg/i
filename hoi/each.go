@@ -23,8 +23,16 @@ package hoi
 
 import "github.com/mg/i"
 
+// The function to provide to the Each function. The function will recieve
+// an iterator that points to some position in the data stream. If the function
+// returns false, the loop breaks. Otherwise the loop continues until the end of
+// the data stream is reached.
 type EachFunc func(itr i.Iterator) bool
 
+// The Each function provides a loop around the iterator, calling EachFunc on
+// each iterator. If the EachFunc returns false, the Each function quits.
+// Otherwise the function loops to the next value in the stream, until the end
+// is reached.
 func Each(itr i.Forward, e EachFunc) {
 	for ; !itr.AtEnd(); itr.Next() {
 		if !e(itr) {

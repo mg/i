@@ -26,13 +26,14 @@ import (
 	"github.com/mg/i"
 )
 
-// Append iterator
 type iappend struct {
 	itrs []i.Forward
 	pos  int
 	err  error
 }
 
+// Build an iteteator that appends a list of iteratior. Looping over
+// the Append iterator will loop over all of the provided iterators.
 func Append(itrs ...i.Forward) i.Forward {
 	return &iappend{itrs: itrs}
 }

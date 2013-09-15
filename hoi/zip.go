@@ -32,6 +32,10 @@ type zip struct {
 	atEnd bool
 }
 
+// The Zip iterator will zip together a collection of data streams, stopping
+// after the shortest data stream is finished. Given e.g. the data streams
+// [1,2,3], [5,6,7] and [10,11,12,13] Zip will provide access to the data
+// sream [[1,5,10], [2,6,11], [3,7,12]].
 func Zip(itrs ...i.Forward) i.Forward {
 	return &zip{itrs: itrs}
 }
@@ -87,6 +91,10 @@ type ziplongest struct {
 	zip
 }
 
+// The ZipLongest iterator will zip together a collection of data streams, not
+// stopping until the longest data stream is finished. Given e.g. the data
+// streams [1,2,3], [5,6,7] and [10,11,12,13] Zip will provide access to the
+// data sream [[1,5,10], [2,6,11], [3,7,12], [nil, nil, 13]].
 func ZipLongest(itrs ...i.Forward) i.Forward {
 	return &ziplongest{zip{itrs: itrs}}
 }

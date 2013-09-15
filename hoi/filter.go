@@ -27,7 +27,9 @@ import (
 	"github.com/mg/i/itk"
 )
 
-// Filter iterator
+// The FilterFunc is a function that will be called on each item in the
+// data stream by the Filter iterator. If the function returns true, the item will be included
+// in the resulting stream, otherwise it will be omitted.
 type FilterFunc func(i.Iterator) bool
 
 type filter struct {
@@ -35,6 +37,8 @@ type filter struct {
 	ff FilterFunc
 }
 
+// Constructs a filtering iterator from a filtering function and a iterator
+// providing access to the data stream that we wish to filter.
 func Filter(ff FilterFunc, itr i.Forward) i.Forward {
 	f := filter{ff: ff}
 	f.WForward = *(itk.WrapForward(itr))

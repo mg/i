@@ -22,8 +22,10 @@
 package hoi
 
 import (
+	"fmt"
 	"github.com/mg/i"
 	"github.com/mg/i/icon"
+	"math"
 	"testing"
 )
 
@@ -48,4 +50,27 @@ func TestMap(t *testing.T) {
 	i.AssertIteration(
 		t, Map(mapfunc, icon.List(123, true, "this", 45.4, -1, 1+1i)),
 		"int", "bool", "string", "float64", "int", "unkown")
+}
+
+func ExampleMap() {
+	// The underlying data stream
+	list := icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+	// The mapping function will map even numbers to its square
+	// and odd numbers to 1
+	mapFunc := func(itr i.Iterator) interface{} {
+		v, _ := itr.Value().(int)
+		if math.Mod(float64(v), 2) == 0 {
+			return v * v
+		}
+		return 1
+	}
+
+	// The Map iterator
+	itrMap := Map(mapFunc, list)
+	for ; !itrMap.AtEnd(); itrMap.Next() {
+		// Prints out the list: 1, 4, 1, 8, 1, 36, 1, 64, 1
+		fmt.Printf("%v, ", itrMap.Value())
+	}
+
 }

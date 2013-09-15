@@ -22,6 +22,7 @@
 package hoi
 
 import (
+	"fmt"
 	"github.com/mg/i"
 	"github.com/mg/i/icon"
 	"testing"
@@ -31,6 +32,20 @@ func TestEach(t *testing.T) {
 	itr := icon.List("one", "two", "three")
 	Each(itr, func(i i.Iterator) bool {
 		t.Log(itr.Value())
+		return true
+	})
+}
+
+func ExampleEach(t *testing.T) {
+	// The stream of data to iterate over
+	itr := icon.List("one", "two", "three")
+
+	// Loop over the data
+	Each(itr, func(i i.Iterator) bool {
+		// Prints out the list: one, two, three
+		fmt.Printf("%v, ", itr.Value())
+
+		// Contine with the iteration
 		return true
 	})
 }

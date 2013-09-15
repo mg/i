@@ -22,6 +22,7 @@
 package hoi
 
 import (
+	"fmt"
 	"github.com/mg/i"
 	"github.com/mg/i/icon"
 	"testing"
@@ -37,4 +38,18 @@ func TestAppend(t *testing.T) {
 	i.AssertIteration(t,
 		Append(icon.List(1, 2), icon.List("one", "two")),
 		1, 2, "one", "two")
+}
+
+func ExampleAppend() {
+	// Three lists that we wish to append together
+	list1 := icon.List("one", "two", "three")
+	list2 := icon.List(1, 2, 3)
+	list3 := icon.List(1.1, 2.2, 3.3)
+
+	// Define Append iterator
+	appendItr := Append(list1, list2, list3)
+	for ; !appendItr.AtEnd(); appendItr.Next() {
+		// Prints out the list: one, two, three, 1, 2, 3, 1.1, 2.2, 3.3,
+		fmt.Printf("%v, ", appendItr.Value())
+	}
 }

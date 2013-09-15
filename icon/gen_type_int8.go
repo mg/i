@@ -1,34 +1,34 @@
-// []byte iterator
-package islice
+// []int8 iterator
+package icon
 
 import (
 	"fmt"
 	"github.com/mg/i"
 )	
 
-type bytes struct {
-	slice []byte
+type int8s struct {
+	slice []int8
 	pos  int
 	err error
 }
 
-func Bytes(slice []byte) i.RandomAccess {
-	return &bytes {slice: slice, err:nil}
+func Int8s(slice []int8) i.RandomAccess {
+	return &int8s {slice: slice, err:nil}
 }
 
-func ByteList(v ...byte) i.RandomAccess {
-	return &bytes {slice: v, err:nil}
+func Int8List(v ...int8) i.RandomAccess {
+	return &int8s {slice: v, err:nil}
 }
 
-func (s *bytes) AtStart() bool {
+func (s *int8s) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *bytes) AtEnd() bool {
+func (s *int8s) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *bytes) Next() error {
+func (s *int8s) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -37,7 +37,7 @@ func (s *bytes) Next() error {
 	return s.err
 }
 
-func (s *bytes) Prev() error {
+func (s *int8s) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -46,17 +46,17 @@ func (s *bytes) Prev() error {
 	return s.err
 }
 
-func (s *bytes) First() error {
+func (s *int8s) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *bytes) Last() error {
+func (s *int8s) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *bytes) Goto(pos int) error {
+func (s *int8s) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -64,11 +64,11 @@ func (s *bytes) Goto(pos int) error {
 	return s.err
 }
 
-func (s *bytes) Len() int {
+func (s *int8s) Len() int {
 	return len(s.slice)
 }
 
-func (s *bytes) Value() interface{} {
+func (s *int8s) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -76,15 +76,15 @@ func (s *bytes) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *bytes) Byte() byte {
+func (s *int8s) Int8() int8 {
 	return s.slice[s.pos]
 }
 
-func (s *bytes) Error() error {
+func (s *int8s) Error() error {
 	return s.err
 }
 
-func (s *bytes) SetError(err error) {
+func (s *int8s) SetError(err error) {
 	s.err= err
 }
 

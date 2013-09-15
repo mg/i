@@ -1,34 +1,34 @@
-// []complex64 iterator
-package islice
+// []uint iterator
+package icon
 
 import (
 	"fmt"
 	"github.com/mg/i"
 )	
 
-type complex64s struct {
-	slice []complex64
+type uints struct {
+	slice []uint
 	pos  int
 	err error
 }
 
-func Complex64s(slice []complex64) i.RandomAccess {
-	return &complex64s {slice: slice, err:nil}
+func Uints(slice []uint) i.RandomAccess {
+	return &uints {slice: slice, err:nil}
 }
 
-func Complex64List(v ...complex64) i.RandomAccess {
-	return &complex64s {slice: v, err:nil}
+func UintList(v ...uint) i.RandomAccess {
+	return &uints {slice: v, err:nil}
 }
 
-func (s *complex64s) AtStart() bool {
+func (s *uints) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *complex64s) AtEnd() bool {
+func (s *uints) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *complex64s) Next() error {
+func (s *uints) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -37,7 +37,7 @@ func (s *complex64s) Next() error {
 	return s.err
 }
 
-func (s *complex64s) Prev() error {
+func (s *uints) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -46,17 +46,17 @@ func (s *complex64s) Prev() error {
 	return s.err
 }
 
-func (s *complex64s) First() error {
+func (s *uints) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *complex64s) Last() error {
+func (s *uints) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *complex64s) Goto(pos int) error {
+func (s *uints) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -64,11 +64,11 @@ func (s *complex64s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *complex64s) Len() int {
+func (s *uints) Len() int {
 	return len(s.slice)
 }
 
-func (s *complex64s) Value() interface{} {
+func (s *uints) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -76,15 +76,15 @@ func (s *complex64s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *complex64s) Complex64() complex64 {
+func (s *uints) Uint() uint {
 	return s.slice[s.pos]
 }
 
-func (s *complex64s) Error() error {
+func (s *uints) Error() error {
 	return s.err
 }
 
-func (s *complex64s) SetError(err error) {
+func (s *uints) SetError(err error) {
 	s.err= err
 }
 

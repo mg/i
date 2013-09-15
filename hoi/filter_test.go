@@ -23,6 +23,7 @@ package hoi
 
 import (
 	"github.com/mg/i"
+	"github.com/mg/i/icon"
 	"testing"
 )
 
@@ -43,8 +44,8 @@ func filterfunc(itr i.Iterator) bool {
 }
 
 func TestFilter(t *testing.T) {
-	i.AssertForward(t, Filter(filterfunc, List(123, true, "this", 45.4, -1, 1+1i)), 4, i.Strict)
+	i.AssertForward(t, Filter(filterfunc, icon.List(123, true, "this", 45.4, -1, 1+1i)), 4, i.Strict)
 	i.AssertIteration(
-		t, Filter(filterfunc, List(123, true, "ssss", 45.4, -1, 1+1i)),
+		t, Filter(filterfunc, icon.List(123, true, "ssss", 45.4, -1, 1+1i)),
 		123, true, 45.4, -1)
 }

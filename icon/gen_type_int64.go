@@ -1,34 +1,34 @@
-// []rune iterator
-package islice
+// []int64 iterator
+package icon
 
 import (
 	"fmt"
 	"github.com/mg/i"
 )	
 
-type runes struct {
-	slice []rune
+type int64s struct {
+	slice []int64
 	pos  int
 	err error
 }
 
-func Runes(slice []rune) i.RandomAccess {
-	return &runes {slice: slice, err:nil}
+func Int64s(slice []int64) i.RandomAccess {
+	return &int64s {slice: slice, err:nil}
 }
 
-func RuneList(v ...rune) i.RandomAccess {
-	return &runes {slice: v, err:nil}
+func Int64List(v ...int64) i.RandomAccess {
+	return &int64s {slice: v, err:nil}
 }
 
-func (s *runes) AtStart() bool {
+func (s *int64s) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *runes) AtEnd() bool {
+func (s *int64s) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *runes) Next() error {
+func (s *int64s) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -37,7 +37,7 @@ func (s *runes) Next() error {
 	return s.err
 }
 
-func (s *runes) Prev() error {
+func (s *int64s) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -46,17 +46,17 @@ func (s *runes) Prev() error {
 	return s.err
 }
 
-func (s *runes) First() error {
+func (s *int64s) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *runes) Last() error {
+func (s *int64s) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *runes) Goto(pos int) error {
+func (s *int64s) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -64,11 +64,11 @@ func (s *runes) Goto(pos int) error {
 	return s.err
 }
 
-func (s *runes) Len() int {
+func (s *int64s) Len() int {
 	return len(s.slice)
 }
 
-func (s *runes) Value() interface{} {
+func (s *int64s) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -76,15 +76,15 @@ func (s *runes) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *runes) Rune() rune {
+func (s *int64s) Int64() int64 {
 	return s.slice[s.pos]
 }
 
-func (s *runes) Error() error {
+func (s *int64s) Error() error {
 	return s.err
 }
 
-func (s *runes) SetError(err error) {
+func (s *int64s) SetError(err error) {
 	s.err= err
 }
 

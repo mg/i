@@ -43,7 +43,7 @@ if($opt_t) {
 
 # set package names, adapter location and adapter file suffix
 my($pack1, $pack2, $pack3, $pack1loc, $pack1suf, $pack2loc, $pack2suf, $pack3loc, $pack3suf)= 
-	("ityped", "iadapt", "islice", "ityped/", "", "iadapt/", "", "islice/", "");
+	("ityped", "iadapt", "icon", "ityped/", "", "iadapt/", "", "icon/", "");
 # use -p value for package names
 if($opt_p) {
 	($pack1, $pack2)= ($opt_p, $opt_p);

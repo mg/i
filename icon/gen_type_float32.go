@@ -1,34 +1,34 @@
-// []uint32 iterator
-package islice
+// []float32 iterator
+package icon
 
 import (
 	"fmt"
 	"github.com/mg/i"
 )	
 
-type uint32s struct {
-	slice []uint32
+type float32s struct {
+	slice []float32
 	pos  int
 	err error
 }
 
-func Uint32s(slice []uint32) i.RandomAccess {
-	return &uint32s {slice: slice, err:nil}
+func Float32s(slice []float32) i.RandomAccess {
+	return &float32s {slice: slice, err:nil}
 }
 
-func Uint32List(v ...uint32) i.RandomAccess {
-	return &uint32s {slice: v, err:nil}
+func Float32List(v ...float32) i.RandomAccess {
+	return &float32s {slice: v, err:nil}
 }
 
-func (s *uint32s) AtStart() bool {
+func (s *float32s) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *uint32s) AtEnd() bool {
+func (s *float32s) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *uint32s) Next() error {
+func (s *float32s) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -37,7 +37,7 @@ func (s *uint32s) Next() error {
 	return s.err
 }
 
-func (s *uint32s) Prev() error {
+func (s *float32s) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -46,17 +46,17 @@ func (s *uint32s) Prev() error {
 	return s.err
 }
 
-func (s *uint32s) First() error {
+func (s *float32s) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *uint32s) Last() error {
+func (s *float32s) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *uint32s) Goto(pos int) error {
+func (s *float32s) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -64,11 +64,11 @@ func (s *uint32s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *uint32s) Len() int {
+func (s *float32s) Len() int {
 	return len(s.slice)
 }
 
-func (s *uint32s) Value() interface{} {
+func (s *float32s) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -76,15 +76,15 @@ func (s *uint32s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *uint32s) Uint32() uint32 {
+func (s *float32s) Float32() float32 {
 	return s.slice[s.pos]
 }
 
-func (s *uint32s) Error() error {
+func (s *float32s) Error() error {
 	return s.err
 }
 
-func (s *uint32s) SetError(err error) {
+func (s *float32s) SetError(err error) {
 	s.err= err
 }
 

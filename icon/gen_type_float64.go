@@ -1,34 +1,34 @@
-// []int64 iterator
-package islice
+// []float64 iterator
+package icon
 
 import (
 	"fmt"
 	"github.com/mg/i"
 )	
 
-type int64s struct {
-	slice []int64
+type float64s struct {
+	slice []float64
 	pos  int
 	err error
 }
 
-func Int64s(slice []int64) i.RandomAccess {
-	return &int64s {slice: slice, err:nil}
+func Float64s(slice []float64) i.RandomAccess {
+	return &float64s {slice: slice, err:nil}
 }
 
-func Int64List(v ...int64) i.RandomAccess {
-	return &int64s {slice: v, err:nil}
+func Float64List(v ...float64) i.RandomAccess {
+	return &float64s {slice: v, err:nil}
 }
 
-func (s *int64s) AtStart() bool {
+func (s *float64s) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *int64s) AtEnd() bool {
+func (s *float64s) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *int64s) Next() error {
+func (s *float64s) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -37,7 +37,7 @@ func (s *int64s) Next() error {
 	return s.err
 }
 
-func (s *int64s) Prev() error {
+func (s *float64s) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -46,17 +46,17 @@ func (s *int64s) Prev() error {
 	return s.err
 }
 
-func (s *int64s) First() error {
+func (s *float64s) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *int64s) Last() error {
+func (s *float64s) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *int64s) Goto(pos int) error {
+func (s *float64s) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -64,11 +64,11 @@ func (s *int64s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *int64s) Len() int {
+func (s *float64s) Len() int {
 	return len(s.slice)
 }
 
-func (s *int64s) Value() interface{} {
+func (s *float64s) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -76,15 +76,15 @@ func (s *int64s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *int64s) Int64() int64 {
+func (s *float64s) Float64() float64 {
 	return s.slice[s.pos]
 }
 
-func (s *int64s) Error() error {
+func (s *float64s) Error() error {
 	return s.err
 }
 
-func (s *int64s) SetError(err error) {
+func (s *float64s) SetError(err error) {
 	s.err= err
 }
 

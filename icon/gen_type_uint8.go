@@ -1,34 +1,34 @@
-// []string iterator
-package islice
+// []uint8 iterator
+package icon
 
 import (
 	"fmt"
 	"github.com/mg/i"
 )	
 
-type strings struct {
-	slice []string
+type uint8s struct {
+	slice []uint8
 	pos  int
 	err error
 }
 
-func Strings(slice []string) i.RandomAccess {
-	return &strings {slice: slice, err:nil}
+func Uint8s(slice []uint8) i.RandomAccess {
+	return &uint8s {slice: slice, err:nil}
 }
 
-func StringList(v ...string) i.RandomAccess {
-	return &strings {slice: v, err:nil}
+func Uint8List(v ...uint8) i.RandomAccess {
+	return &uint8s {slice: v, err:nil}
 }
 
-func (s *strings) AtStart() bool {
+func (s *uint8s) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *strings) AtEnd() bool {
+func (s *uint8s) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *strings) Next() error {
+func (s *uint8s) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -37,7 +37,7 @@ func (s *strings) Next() error {
 	return s.err
 }
 
-func (s *strings) Prev() error {
+func (s *uint8s) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -46,17 +46,17 @@ func (s *strings) Prev() error {
 	return s.err
 }
 
-func (s *strings) First() error {
+func (s *uint8s) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *strings) Last() error {
+func (s *uint8s) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *strings) Goto(pos int) error {
+func (s *uint8s) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -64,11 +64,11 @@ func (s *strings) Goto(pos int) error {
 	return s.err
 }
 
-func (s *strings) Len() int {
+func (s *uint8s) Len() int {
 	return len(s.slice)
 }
 
-func (s *strings) Value() interface{} {
+func (s *uint8s) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -76,15 +76,15 @@ func (s *strings) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *strings) String() string {
+func (s *uint8s) Uint8() uint8 {
 	return s.slice[s.pos]
 }
 
-func (s *strings) Error() error {
+func (s *uint8s) Error() error {
 	return s.err
 }
 
-func (s *strings) SetError(err error) {
+func (s *uint8s) SetError(err error) {
 	s.err= err
 }
 

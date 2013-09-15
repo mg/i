@@ -1,34 +1,34 @@
-// []bool iterator
-package islice
+// []uint16 iterator
+package icon
 
 import (
 	"fmt"
 	"github.com/mg/i"
 )	
 
-type bools struct {
-	slice []bool
+type uint16s struct {
+	slice []uint16
 	pos  int
 	err error
 }
 
-func Bools(slice []bool) i.RandomAccess {
-	return &bools {slice: slice, err:nil}
+func Uint16s(slice []uint16) i.RandomAccess {
+	return &uint16s {slice: slice, err:nil}
 }
 
-func BoolList(v ...bool) i.RandomAccess {
-	return &bools {slice: v, err:nil}
+func Uint16List(v ...uint16) i.RandomAccess {
+	return &uint16s {slice: v, err:nil}
 }
 
-func (s *bools) AtStart() bool {
+func (s *uint16s) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *bools) AtEnd() bool {
+func (s *uint16s) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *bools) Next() error {
+func (s *uint16s) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -37,7 +37,7 @@ func (s *bools) Next() error {
 	return s.err
 }
 
-func (s *bools) Prev() error {
+func (s *uint16s) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -46,17 +46,17 @@ func (s *bools) Prev() error {
 	return s.err
 }
 
-func (s *bools) First() error {
+func (s *uint16s) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *bools) Last() error {
+func (s *uint16s) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *bools) Goto(pos int) error {
+func (s *uint16s) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -64,11 +64,11 @@ func (s *bools) Goto(pos int) error {
 	return s.err
 }
 
-func (s *bools) Len() int {
+func (s *uint16s) Len() int {
 	return len(s.slice)
 }
 
-func (s *bools) Value() interface{} {
+func (s *uint16s) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -76,15 +76,15 @@ func (s *bools) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *bools) Bool() bool {
+func (s *uint16s) Uint16() uint16 {
 	return s.slice[s.pos]
 }
 
-func (s *bools) Error() error {
+func (s *uint16s) Error() error {
 	return s.err
 }
 
-func (s *bools) SetError(err error) {
+func (s *uint16s) SetError(err error) {
 	s.err= err
 }
 

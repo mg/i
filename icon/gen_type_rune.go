@@ -1,34 +1,34 @@
-// []int8 iterator
-package islice
+// []rune iterator
+package icon
 
 import (
 	"fmt"
 	"github.com/mg/i"
 )	
 
-type int8s struct {
-	slice []int8
+type runes struct {
+	slice []rune
 	pos  int
 	err error
 }
 
-func Int8s(slice []int8) i.RandomAccess {
-	return &int8s {slice: slice, err:nil}
+func Runes(slice []rune) i.RandomAccess {
+	return &runes {slice: slice, err:nil}
 }
 
-func Int8List(v ...int8) i.RandomAccess {
-	return &int8s {slice: v, err:nil}
+func RuneList(v ...rune) i.RandomAccess {
+	return &runes {slice: v, err:nil}
 }
 
-func (s *int8s) AtStart() bool {
+func (s *runes) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *int8s) AtEnd() bool {
+func (s *runes) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *int8s) Next() error {
+func (s *runes) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -37,7 +37,7 @@ func (s *int8s) Next() error {
 	return s.err
 }
 
-func (s *int8s) Prev() error {
+func (s *runes) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -46,17 +46,17 @@ func (s *int8s) Prev() error {
 	return s.err
 }
 
-func (s *int8s) First() error {
+func (s *runes) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *int8s) Last() error {
+func (s *runes) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *int8s) Goto(pos int) error {
+func (s *runes) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -64,11 +64,11 @@ func (s *int8s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *int8s) Len() int {
+func (s *runes) Len() int {
 	return len(s.slice)
 }
 
-func (s *int8s) Value() interface{} {
+func (s *runes) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -76,15 +76,15 @@ func (s *int8s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *int8s) Int8() int8 {
+func (s *runes) Rune() rune {
 	return s.slice[s.pos]
 }
 
-func (s *int8s) Error() error {
+func (s *runes) Error() error {
 	return s.err
 }
 
-func (s *int8s) SetError(err error) {
+func (s *runes) SetError(err error) {
 	s.err= err
 }
 

@@ -23,11 +23,12 @@ package hoi
 
 import (
 	"github.com/mg/i"
+	"github.com/mg/i/icon"
 	"testing"
 )
 
 func TestEach(t *testing.T) {
-	itr := List("one", "two", "three")
+	itr := icon.List("one", "two", "three")
 	Each(itr, func(i i.Iterator) bool {
 		t.Log(itr.Value())
 		return true

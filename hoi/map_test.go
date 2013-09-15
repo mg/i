@@ -23,6 +23,7 @@ package hoi
 
 import (
 	"github.com/mg/i"
+	"github.com/mg/i/icon"
 	"testing"
 )
 
@@ -43,8 +44,8 @@ func mapfunc(itr i.Iterator) interface{} {
 }
 
 func TestMap(t *testing.T) {
-	i.AssertForward(t, Map(mapfunc, List(123, true, "this", 45.4, -1, 1+1i)), 6, i.Strict)
+	i.AssertForward(t, Map(mapfunc, icon.List(123, true, "this", 45.4, -1, 1+1i)), 6, i.Strict)
 	i.AssertIteration(
-		t, Map(mapfunc, List(123, true, "this", 45.4, -1, 1+1i)),
+		t, Map(mapfunc, icon.List(123, true, "this", 45.4, -1, 1+1i)),
 		"int", "bool", "string", "float64", "int", "unkown")
 }

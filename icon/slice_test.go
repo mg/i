@@ -1,4 +1,4 @@
-package islice
+package icon
 
 import (
 	"github.com/mg/i"

@@ -1,34 +1,34 @@
-// []complex128 iterator
-package islice
+// []uint32 iterator
+package icon
 
 import (
 	"fmt"
 	"github.com/mg/i"
 )	
 
-type complex128s struct {
-	slice []complex128
+type uint32s struct {
+	slice []uint32
 	pos  int
 	err error
 }
 
-func Complex128s(slice []complex128) i.RandomAccess {
-	return &complex128s {slice: slice, err:nil}
+func Uint32s(slice []uint32) i.RandomAccess {
+	return &uint32s {slice: slice, err:nil}
 }
 
-func Complex128List(v ...complex128) i.RandomAccess {
-	return &complex128s {slice: v, err:nil}
+func Uint32List(v ...uint32) i.RandomAccess {
+	return &uint32s {slice: v, err:nil}
 }
 
-func (s *complex128s) AtStart() bool {
+func (s *uint32s) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *complex128s) AtEnd() bool {
+func (s *uint32s) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *complex128s) Next() error {
+func (s *uint32s) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -37,7 +37,7 @@ func (s *complex128s) Next() error {
 	return s.err
 }
 
-func (s *complex128s) Prev() error {
+func (s *uint32s) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -46,17 +46,17 @@ func (s *complex128s) Prev() error {
 	return s.err
 }
 
-func (s *complex128s) First() error {
+func (s *uint32s) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *complex128s) Last() error {
+func (s *uint32s) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *complex128s) Goto(pos int) error {
+func (s *uint32s) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -64,11 +64,11 @@ func (s *complex128s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *complex128s) Len() int {
+func (s *uint32s) Len() int {
 	return len(s.slice)
 }
 
-func (s *complex128s) Value() interface{} {
+func (s *uint32s) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -76,15 +76,15 @@ func (s *complex128s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *complex128s) Complex128() complex128 {
+func (s *uint32s) Uint32() uint32 {
 	return s.slice[s.pos]
 }
 
-func (s *complex128s) Error() error {
+func (s *uint32s) Error() error {
 	return s.err
 }
 
-func (s *complex128s) SetError(err error) {
+func (s *uint32s) SetError(err error) {
 	s.err= err
 }
 

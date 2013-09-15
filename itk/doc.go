@@ -19,6 +19,6 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// Package itk is the Iterator ToolKit package. It provides reusable components
+// The Iterator ToolKit package (itk) provides reusable components
 // to help with the construction of iterators.
 package itk

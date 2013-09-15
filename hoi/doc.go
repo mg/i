@@ -23,5 +23,4 @@
 // common interfacs provided by package i. Most functions in this package
 // transform a iterator into a new iterator that transforms the original
 // iteration according to some computation.
-
 package hoi

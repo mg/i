@@ -19,7 +19,7 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// Package icon provides iterators that give access to containers such as slices.
+// The Iterator Containers (icon) package provides iterators that give access to containers such as slices.
 // Each slices iterator is a typed variand supporting the corresponding typed
 // interface in ityped, e.g. the iterator for boolean slices returns the
 // ityped.RandomAccessBool interface, which in addition to the general

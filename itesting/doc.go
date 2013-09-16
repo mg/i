@@ -19,8 +19,7 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// The Higher Order Iterators (hoi) package is a collection of iterators that
-// build on the common interfacs provided by package i and provde higher order
-// functionality. Most functions in this package transform a iterator into a new
-// iterator that transforms the original yteration according to some computation.
-package hoi
+// The Iterator Testing (itesting) package provides a collection of functions
+// that assist in testing iterators and assert that they fulfill the invariants
+// they most hold to ensure predictable behaviour.
+package itesting

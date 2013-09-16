@@ -19,5 +19,6 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// Package igen contains few iterators that act as generators.
+// The Iterator Generators (igen) package contains few iterators that act as
+// generators.
 package igen

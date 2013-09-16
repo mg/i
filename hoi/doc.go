@@ -22,5 +22,5 @@
 // The Higher Order Iterators (hoi) package is a collection of iterators that
 // build on the common interfacs provided by package i and provde higher order
 // functionality. Most functions in this package transform a iterator into a new
-// iterator that transforms the original yteration according to some computation.
+// iterator that transforms the original iteration according to some computation.
 package hoi

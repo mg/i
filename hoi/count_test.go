@@ -35,7 +35,7 @@ func TestCount(t *testing.T) {
 	itesting.AssertIteration(t, Count(5, list), 1, 2, 3, 4, 5)
 }
 
-func ExmapleCount() {
+func ExampleCount() {
 	// The underlying data stream
 	list := icon.List(1, 2, 3, 4, 5, 6, 7, 8, 9)
 

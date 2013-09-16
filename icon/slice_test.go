@@ -28,7 +28,7 @@ func TestByte(t *testing.T) {
 	itesting.AssertIteration(t, itr, byte('1'), byte('a'), byte(100))
 }
 
-func ExampleByte() {
+func ExampleBytes() {
 	slice := []byte{'1', 'a', 100}
 	itr := Bytes(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -43,7 +43,7 @@ func TestComplex128(t *testing.T) {
 	itesting.AssertIteration(t, itr, complex(1, 1), 0+3i, 4-2i, 1+0i)
 }
 
-func ExampleComplex128() {
+func ExampleComplex128s() {
 	slice := []complex128{complex(1, 1), 0 + 3i, 4 - 2i, 1 + 0i}
 	itr := Complex128s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -58,7 +58,7 @@ func TestComplex64(t *testing.T) {
 	itesting.AssertIteration(t, itr, complex64(complex(1, 1)), complex64(0+3i), complex64(4-2i), complex64(1+0i))
 }
 
-func ExampleComplex64() {
+func ExampleComplex64s() {
 	slice := []complex64{complex(1, 1), 0 + 3i, 4 - 2i, 1 + 0i}
 	itr := Complex64s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -73,7 +73,7 @@ func TestFloat32(t *testing.T) {
 	itesting.AssertIteration(t, itr, float32(1.0), float32(34.0), float32(0.123123), float32(1))
 }
 
-func ExampleFloat32() {
+func ExampleFloat32s() {
 	slice := []float32{1.0, 34.0, 0.123123, 1}
 	itr := Float32s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -88,7 +88,7 @@ func TestFloat64(t *testing.T) {
 	itesting.AssertIteration(t, itr, 1.0, 34.0, 0.123123, float64(1))
 }
 
-func ExampleFloat64() {
+func ExampleFloat64s() {
 	slice := []float64{1.0, 34.0, 0.123123, 1}
 	itr := Float64s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -103,7 +103,7 @@ func TestInt(t *testing.T) {
 	itesting.AssertIteration(t, itr, 1, 5, 6, -4, 100)
 }
 
-func ExampleInt() {
+func ExampleInts() {
 	slice := []int{1, 5, 6, -4, 100}
 	itr := Ints(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -118,7 +118,7 @@ func TestInt16(t *testing.T) {
 	itesting.AssertIteration(t, itr, int16(1), int16(5), int16(6), int16(-4), int16(100))
 }
 
-func ExampleInt16() {
+func ExampleInt16s() {
 	slice := []int16{1, 5, 6, -4, 100}
 	itr := Int16s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -133,7 +133,7 @@ func TestInt32(t *testing.T) {
 	itesting.AssertIteration(t, itr, int32(1), int32(5), int32(6), int32(-4), int32(100))
 }
 
-func ExampleInt32() {
+func ExampleInt32s() {
 	slice := []int32{1, 5, 6, -4, 100}
 	itr := Int32s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -148,7 +148,7 @@ func TestInt64(t *testing.T) {
 	itesting.AssertIteration(t, itr, int64(1), int64(5), int64(6), int64(-4), int64(100))
 }
 
-func ExampleInt64() {
+func ExampleInt64s() {
 	slice := []int64{1, 5, 6, -4, 100}
 	itr := Int64s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -163,7 +163,7 @@ func TestInt8(t *testing.T) {
 	itesting.AssertIteration(t, itr, int8(1), int8(5), int8(6), int8(-4), int8(100))
 }
 
-func ExampleInt8() {
+func ExampleInt8s() {
 	slice := []int8{1, 5, 6, -4, 100}
 	itr := Int8s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -178,7 +178,7 @@ func TestRune(t *testing.T) {
 	itesting.AssertIteration(t, itr, 'a', 'þ', '世', '界', rune(123))
 }
 
-func ExampleRune() {
+func ExampleRunes() {
 	slice := []rune{'a', 'þ', '世', '界', 123}
 	itr := Runes(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -193,7 +193,7 @@ func TestString(t *testing.T) {
 	itesting.AssertIteration(t, itr, "hello", "goodbye", "世界")
 }
 
-func ExampleString() {
+func ExampleStrings() {
 	slice := []string{"hello", "goodbye", "世界"}
 	itr := Strings(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -208,7 +208,7 @@ func TestUint16(t *testing.T) {
 	itesting.AssertIteration(t, itr, uint16(1), uint16(5), uint16(6), uint16(100))
 }
 
-func ExampleUint16() {
+func ExampleUint16s() {
 	slice := []uint16{1, 5, 6, 100}
 	itr := Uint16s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -223,7 +223,7 @@ func TestUint32(t *testing.T) {
 	itesting.AssertIteration(t, itr, uint32(1), uint32(5), uint32(6), uint32(100))
 }
 
-func ExampleUint32() {
+func ExampleUint32s() {
 	slice := []uint32{1, 5, 6, 100}
 	itr := Uint32s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -238,7 +238,7 @@ func TestUint64(t *testing.T) {
 	itesting.AssertIteration(t, itr, uint64(1), uint64(5), uint64(6), uint64(100))
 }
 
-func ExampleUint64() {
+func ExampleUint64s() {
 	slice := []uint64{1, 5, 6, 100}
 	itr := Uint64s(slice)
 	for ; !itr.AtEnd(); itr.Next() {
@@ -253,7 +253,7 @@ func TestUint8(t *testing.T) {
 	itesting.AssertIteration(t, itr, uint8(1), uint8(5), uint8(6), uint8(100))
 }
 
-func ExampleUint8() {
+func ExampleUint8s() {
 	slice := []uint8{1, 5, 6, 100}
 	itr := Uint8s(slice)
 	for ; !itr.AtEnd(); itr.Next() {

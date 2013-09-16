@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type uints struct {
+type uintslice struct {
 	slice []uint
 	pos  int
 	err error
 }
 
-func Uints(slice []uint) i.RandomAccess {
-	return &uints {slice: slice, err:nil}
+func Uints(slice []uint) ityped.RandomAccessUint {
+	return &uintslice {slice: slice, err:nil}
 }
 
-func UintList(v ...uint) i.RandomAccess {
-	return &uints {slice: v, err:nil}
+func UintList(v ...uint) ityped.RandomAccessUint {
+	return &uintslice {slice: v, err:nil}
 }
 
-func (s *uints) AtStart() bool {
+func (s *uintslice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *uints) AtEnd() bool {
+func (s *uintslice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *uints) Next() error {
+func (s *uintslice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *uints) Next() error {
 	return s.err
 }
 
-func (s *uints) Prev() error {
+func (s *uintslice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *uints) Prev() error {
 	return s.err
 }
 
-func (s *uints) First() error {
+func (s *uintslice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *uints) Last() error {
+func (s *uintslice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *uints) Goto(pos int) error {
+func (s *uintslice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *uints) Goto(pos int) error {
 	return s.err
 }
 
-func (s *uints) Len() int {
+func (s *uintslice) Len() int {
 	return len(s.slice)
 }
 
-func (s *uints) Value() interface{} {
+func (s *uintslice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *uints) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *uints) Uint() uint {
+func (s *uintslice) Uint() uint {
 	return s.slice[s.pos]
 }
 
-func (s *uints) Error() error {
+func (s *uintslice) Error() error {
 	return s.err
 }
 
-func (s *uints) SetError(err error) {
+func (s *uintslice) SetError(err error) {
 	s.err= err
 }
 

@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type uint8s struct {
+type uint8slice struct {
 	slice []uint8
 	pos  int
 	err error
 }
 
-func Uint8s(slice []uint8) i.RandomAccess {
-	return &uint8s {slice: slice, err:nil}
+func Uint8s(slice []uint8) ityped.RandomAccessUint8 {
+	return &uint8slice {slice: slice, err:nil}
 }
 
-func Uint8List(v ...uint8) i.RandomAccess {
-	return &uint8s {slice: v, err:nil}
+func Uint8List(v ...uint8) ityped.RandomAccessUint8 {
+	return &uint8slice {slice: v, err:nil}
 }
 
-func (s *uint8s) AtStart() bool {
+func (s *uint8slice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *uint8s) AtEnd() bool {
+func (s *uint8slice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *uint8s) Next() error {
+func (s *uint8slice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *uint8s) Next() error {
 	return s.err
 }
 
-func (s *uint8s) Prev() error {
+func (s *uint8slice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *uint8s) Prev() error {
 	return s.err
 }
 
-func (s *uint8s) First() error {
+func (s *uint8slice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *uint8s) Last() error {
+func (s *uint8slice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *uint8s) Goto(pos int) error {
+func (s *uint8slice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *uint8s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *uint8s) Len() int {
+func (s *uint8slice) Len() int {
 	return len(s.slice)
 }
 
-func (s *uint8s) Value() interface{} {
+func (s *uint8slice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *uint8s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *uint8s) Uint8() uint8 {
+func (s *uint8slice) Uint8() uint8 {
 	return s.slice[s.pos]
 }
 
-func (s *uint8s) Error() error {
+func (s *uint8slice) Error() error {
 	return s.err
 }
 
-func (s *uint8s) SetError(err error) {
+func (s *uint8slice) SetError(err error) {
 	s.err= err
 }
 

@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type complex64s struct {
+type complex64slice struct {
 	slice []complex64
 	pos  int
 	err error
 }
 
-func Complex64s(slice []complex64) i.RandomAccess {
-	return &complex64s {slice: slice, err:nil}
+func Complex64s(slice []complex64) ityped.RandomAccessComplex64 {
+	return &complex64slice {slice: slice, err:nil}
 }
 
-func Complex64List(v ...complex64) i.RandomAccess {
-	return &complex64s {slice: v, err:nil}
+func Complex64List(v ...complex64) ityped.RandomAccessComplex64 {
+	return &complex64slice {slice: v, err:nil}
 }
 
-func (s *complex64s) AtStart() bool {
+func (s *complex64slice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *complex64s) AtEnd() bool {
+func (s *complex64slice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *complex64s) Next() error {
+func (s *complex64slice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *complex64s) Next() error {
 	return s.err
 }
 
-func (s *complex64s) Prev() error {
+func (s *complex64slice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *complex64s) Prev() error {
 	return s.err
 }
 
-func (s *complex64s) First() error {
+func (s *complex64slice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *complex64s) Last() error {
+func (s *complex64slice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *complex64s) Goto(pos int) error {
+func (s *complex64slice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *complex64s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *complex64s) Len() int {
+func (s *complex64slice) Len() int {
 	return len(s.slice)
 }
 
-func (s *complex64s) Value() interface{} {
+func (s *complex64slice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *complex64s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *complex64s) Complex64() complex64 {
+func (s *complex64slice) Complex64() complex64 {
 	return s.slice[s.pos]
 }
 
-func (s *complex64s) Error() error {
+func (s *complex64slice) Error() error {
 	return s.err
 }
 
-func (s *complex64s) SetError(err error) {
+func (s *complex64slice) SetError(err error) {
 	s.err= err
 }
 

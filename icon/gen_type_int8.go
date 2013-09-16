@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type int8s struct {
+type int8slice struct {
 	slice []int8
 	pos  int
 	err error
 }
 
-func Int8s(slice []int8) i.RandomAccess {
-	return &int8s {slice: slice, err:nil}
+func Int8s(slice []int8) ityped.RandomAccessInt8 {
+	return &int8slice {slice: slice, err:nil}
 }
 
-func Int8List(v ...int8) i.RandomAccess {
-	return &int8s {slice: v, err:nil}
+func Int8List(v ...int8) ityped.RandomAccessInt8 {
+	return &int8slice {slice: v, err:nil}
 }
 
-func (s *int8s) AtStart() bool {
+func (s *int8slice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *int8s) AtEnd() bool {
+func (s *int8slice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *int8s) Next() error {
+func (s *int8slice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *int8s) Next() error {
 	return s.err
 }
 
-func (s *int8s) Prev() error {
+func (s *int8slice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *int8s) Prev() error {
 	return s.err
 }
 
-func (s *int8s) First() error {
+func (s *int8slice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *int8s) Last() error {
+func (s *int8slice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *int8s) Goto(pos int) error {
+func (s *int8slice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *int8s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *int8s) Len() int {
+func (s *int8slice) Len() int {
 	return len(s.slice)
 }
 
-func (s *int8s) Value() interface{} {
+func (s *int8slice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *int8s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *int8s) Int8() int8 {
+func (s *int8slice) Int8() int8 {
 	return s.slice[s.pos]
 }
 
-func (s *int8s) Error() error {
+func (s *int8slice) Error() error {
 	return s.err
 }
 
-func (s *int8s) SetError(err error) {
+func (s *int8slice) SetError(err error) {
 	s.err= err
 }
 

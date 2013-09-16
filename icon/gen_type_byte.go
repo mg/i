@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type bytes struct {
+type byteslice struct {
 	slice []byte
 	pos  int
 	err error
 }
 
-func Bytes(slice []byte) i.RandomAccess {
-	return &bytes {slice: slice, err:nil}
+func Bytes(slice []byte) ityped.RandomAccessByte {
+	return &byteslice {slice: slice, err:nil}
 }
 
-func ByteList(v ...byte) i.RandomAccess {
-	return &bytes {slice: v, err:nil}
+func ByteList(v ...byte) ityped.RandomAccessByte {
+	return &byteslice {slice: v, err:nil}
 }
 
-func (s *bytes) AtStart() bool {
+func (s *byteslice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *bytes) AtEnd() bool {
+func (s *byteslice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *bytes) Next() error {
+func (s *byteslice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *bytes) Next() error {
 	return s.err
 }
 
-func (s *bytes) Prev() error {
+func (s *byteslice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *bytes) Prev() error {
 	return s.err
 }
 
-func (s *bytes) First() error {
+func (s *byteslice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *bytes) Last() error {
+func (s *byteslice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *bytes) Goto(pos int) error {
+func (s *byteslice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *bytes) Goto(pos int) error {
 	return s.err
 }
 
-func (s *bytes) Len() int {
+func (s *byteslice) Len() int {
 	return len(s.slice)
 }
 
-func (s *bytes) Value() interface{} {
+func (s *byteslice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *bytes) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *bytes) Byte() byte {
+func (s *byteslice) Byte() byte {
 	return s.slice[s.pos]
 }
 
-func (s *bytes) Error() error {
+func (s *byteslice) Error() error {
 	return s.err
 }
 
-func (s *bytes) SetError(err error) {
+func (s *byteslice) SetError(err error) {
 	s.err= err
 }
 

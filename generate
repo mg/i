@@ -66,7 +66,8 @@ for(split /^/, $types) {
 		}
 		my $slicename= $typename . "s";
 		my $slicelistname= $typename . "List";
-		my $slicestruct = lc $slicename;
+		my $slicestruct = lc $typename . "slice";
+		my $sliceinterface = "ityped.RandomAccess" . $typename;
 		my $typenameOr = $typename . "Or";
 
 # licencing header
@@ -276,7 +277,7 @@ package $pack3
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
 type $slicestruct struct {
@@ -285,11 +286,11 @@ type $slicestruct struct {
 	err error
 }
 
-func $slicename(slice []$type) i.RandomAccess {
+func $slicename(slice []$type) $sliceinterface {
 	return &$slicestruct {slice: slice, err:nil}
 }
 
-func $slicelistname(v ...$type) i.RandomAccess {
+func $slicelistname(v ...$type) $sliceinterface {
 	return &$slicestruct {slice: v, err:nil}
 }
 

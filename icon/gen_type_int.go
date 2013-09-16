@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type ints struct {
+type intslice struct {
 	slice []int
 	pos  int
 	err error
 }
 
-func Ints(slice []int) i.RandomAccess {
-	return &ints {slice: slice, err:nil}
+func Ints(slice []int) ityped.RandomAccessInt {
+	return &intslice {slice: slice, err:nil}
 }
 
-func IntList(v ...int) i.RandomAccess {
-	return &ints {slice: v, err:nil}
+func IntList(v ...int) ityped.RandomAccessInt {
+	return &intslice {slice: v, err:nil}
 }
 
-func (s *ints) AtStart() bool {
+func (s *intslice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *ints) AtEnd() bool {
+func (s *intslice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *ints) Next() error {
+func (s *intslice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *ints) Next() error {
 	return s.err
 }
 
-func (s *ints) Prev() error {
+func (s *intslice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *ints) Prev() error {
 	return s.err
 }
 
-func (s *ints) First() error {
+func (s *intslice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *ints) Last() error {
+func (s *intslice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *ints) Goto(pos int) error {
+func (s *intslice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *ints) Goto(pos int) error {
 	return s.err
 }
 
-func (s *ints) Len() int {
+func (s *intslice) Len() int {
 	return len(s.slice)
 }
 
-func (s *ints) Value() interface{} {
+func (s *intslice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *ints) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *ints) Int() int {
+func (s *intslice) Int() int {
 	return s.slice[s.pos]
 }
 
-func (s *ints) Error() error {
+func (s *intslice) Error() error {
 	return s.err
 }
 
-func (s *ints) SetError(err error) {
+func (s *intslice) SetError(err error) {
 	s.err= err
 }
 

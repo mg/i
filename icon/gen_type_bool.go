@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type bools struct {
+type boolslice struct {
 	slice []bool
 	pos  int
 	err error
 }
 
-func Bools(slice []bool) i.RandomAccess {
-	return &bools {slice: slice, err:nil}
+func Bools(slice []bool) ityped.RandomAccessBool {
+	return &boolslice {slice: slice, err:nil}
 }
 
-func BoolList(v ...bool) i.RandomAccess {
-	return &bools {slice: v, err:nil}
+func BoolList(v ...bool) ityped.RandomAccessBool {
+	return &boolslice {slice: v, err:nil}
 }
 
-func (s *bools) AtStart() bool {
+func (s *boolslice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *bools) AtEnd() bool {
+func (s *boolslice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *bools) Next() error {
+func (s *boolslice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *bools) Next() error {
 	return s.err
 }
 
-func (s *bools) Prev() error {
+func (s *boolslice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *bools) Prev() error {
 	return s.err
 }
 
-func (s *bools) First() error {
+func (s *boolslice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *bools) Last() error {
+func (s *boolslice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *bools) Goto(pos int) error {
+func (s *boolslice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *bools) Goto(pos int) error {
 	return s.err
 }
 
-func (s *bools) Len() int {
+func (s *boolslice) Len() int {
 	return len(s.slice)
 }
 
-func (s *bools) Value() interface{} {
+func (s *boolslice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *bools) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *bools) Bool() bool {
+func (s *boolslice) Bool() bool {
 	return s.slice[s.pos]
 }
 
-func (s *bools) Error() error {
+func (s *boolslice) Error() error {
 	return s.err
 }
 
-func (s *bools) SetError(err error) {
+func (s *boolslice) SetError(err error) {
 	s.err= err
 }
 

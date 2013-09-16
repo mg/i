@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type float32s struct {
+type float32slice struct {
 	slice []float32
 	pos  int
 	err error
 }
 
-func Float32s(slice []float32) i.RandomAccess {
-	return &float32s {slice: slice, err:nil}
+func Float32s(slice []float32) ityped.RandomAccessFloat32 {
+	return &float32slice {slice: slice, err:nil}
 }
 
-func Float32List(v ...float32) i.RandomAccess {
-	return &float32s {slice: v, err:nil}
+func Float32List(v ...float32) ityped.RandomAccessFloat32 {
+	return &float32slice {slice: v, err:nil}
 }
 
-func (s *float32s) AtStart() bool {
+func (s *float32slice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *float32s) AtEnd() bool {
+func (s *float32slice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *float32s) Next() error {
+func (s *float32slice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *float32s) Next() error {
 	return s.err
 }
 
-func (s *float32s) Prev() error {
+func (s *float32slice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *float32s) Prev() error {
 	return s.err
 }
 
-func (s *float32s) First() error {
+func (s *float32slice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *float32s) Last() error {
+func (s *float32slice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *float32s) Goto(pos int) error {
+func (s *float32slice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *float32s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *float32s) Len() int {
+func (s *float32slice) Len() int {
 	return len(s.slice)
 }
 
-func (s *float32s) Value() interface{} {
+func (s *float32slice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *float32s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *float32s) Float32() float32 {
+func (s *float32slice) Float32() float32 {
 	return s.slice[s.pos]
 }
 
-func (s *float32s) Error() error {
+func (s *float32slice) Error() error {
 	return s.err
 }
 
-func (s *float32s) SetError(err error) {
+func (s *float32slice) SetError(err error) {
 	s.err= err
 }
 

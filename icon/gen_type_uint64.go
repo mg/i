@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type uint64s struct {
+type uint64slice struct {
 	slice []uint64
 	pos  int
 	err error
 }
 
-func Uint64s(slice []uint64) i.RandomAccess {
-	return &uint64s {slice: slice, err:nil}
+func Uint64s(slice []uint64) ityped.RandomAccessUint64 {
+	return &uint64slice {slice: slice, err:nil}
 }
 
-func Uint64List(v ...uint64) i.RandomAccess {
-	return &uint64s {slice: v, err:nil}
+func Uint64List(v ...uint64) ityped.RandomAccessUint64 {
+	return &uint64slice {slice: v, err:nil}
 }
 
-func (s *uint64s) AtStart() bool {
+func (s *uint64slice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *uint64s) AtEnd() bool {
+func (s *uint64slice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *uint64s) Next() error {
+func (s *uint64slice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *uint64s) Next() error {
 	return s.err
 }
 
-func (s *uint64s) Prev() error {
+func (s *uint64slice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *uint64s) Prev() error {
 	return s.err
 }
 
-func (s *uint64s) First() error {
+func (s *uint64slice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *uint64s) Last() error {
+func (s *uint64slice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *uint64s) Goto(pos int) error {
+func (s *uint64slice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *uint64s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *uint64s) Len() int {
+func (s *uint64slice) Len() int {
 	return len(s.slice)
 }
 
-func (s *uint64s) Value() interface{} {
+func (s *uint64slice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *uint64s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *uint64s) Uint64() uint64 {
+func (s *uint64slice) Uint64() uint64 {
 	return s.slice[s.pos]
 }
 
-func (s *uint64s) Error() error {
+func (s *uint64slice) Error() error {
 	return s.err
 }
 
-func (s *uint64s) SetError(err error) {
+func (s *uint64slice) SetError(err error) {
 	s.err= err
 }
 

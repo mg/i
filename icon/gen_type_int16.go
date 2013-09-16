@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type int16s struct {
+type int16slice struct {
 	slice []int16
 	pos  int
 	err error
 }
 
-func Int16s(slice []int16) i.RandomAccess {
-	return &int16s {slice: slice, err:nil}
+func Int16s(slice []int16) ityped.RandomAccessInt16 {
+	return &int16slice {slice: slice, err:nil}
 }
 
-func Int16List(v ...int16) i.RandomAccess {
-	return &int16s {slice: v, err:nil}
+func Int16List(v ...int16) ityped.RandomAccessInt16 {
+	return &int16slice {slice: v, err:nil}
 }
 
-func (s *int16s) AtStart() bool {
+func (s *int16slice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *int16s) AtEnd() bool {
+func (s *int16slice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *int16s) Next() error {
+func (s *int16slice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *int16s) Next() error {
 	return s.err
 }
 
-func (s *int16s) Prev() error {
+func (s *int16slice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *int16s) Prev() error {
 	return s.err
 }
 
-func (s *int16s) First() error {
+func (s *int16slice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *int16s) Last() error {
+func (s *int16slice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *int16s) Goto(pos int) error {
+func (s *int16slice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *int16s) Goto(pos int) error {
 	return s.err
 }
 
-func (s *int16s) Len() int {
+func (s *int16slice) Len() int {
 	return len(s.slice)
 }
 
-func (s *int16s) Value() interface{} {
+func (s *int16slice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *int16s) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *int16s) Int16() int16 {
+func (s *int16slice) Int16() int16 {
 	return s.slice[s.pos]
 }
 
-func (s *int16s) Error() error {
+func (s *int16slice) Error() error {
 	return s.err
 }
 
-func (s *int16s) SetError(err error) {
+func (s *int16slice) SetError(err error) {
 	s.err= err
 }
 

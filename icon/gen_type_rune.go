@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type runes struct {
+type runeslice struct {
 	slice []rune
 	pos  int
 	err error
 }
 
-func Runes(slice []rune) i.RandomAccess {
-	return &runes {slice: slice, err:nil}
+func Runes(slice []rune) ityped.RandomAccessRune {
+	return &runeslice {slice: slice, err:nil}
 }
 
-func RuneList(v ...rune) i.RandomAccess {
-	return &runes {slice: v, err:nil}
+func RuneList(v ...rune) ityped.RandomAccessRune {
+	return &runeslice {slice: v, err:nil}
 }
 
-func (s *runes) AtStart() bool {
+func (s *runeslice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *runes) AtEnd() bool {
+func (s *runeslice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *runes) Next() error {
+func (s *runeslice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *runes) Next() error {
 	return s.err
 }
 
-func (s *runes) Prev() error {
+func (s *runeslice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *runes) Prev() error {
 	return s.err
 }
 
-func (s *runes) First() error {
+func (s *runeslice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *runes) Last() error {
+func (s *runeslice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *runes) Goto(pos int) error {
+func (s *runeslice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *runes) Goto(pos int) error {
 	return s.err
 }
 
-func (s *runes) Len() int {
+func (s *runeslice) Len() int {
 	return len(s.slice)
 }
 
-func (s *runes) Value() interface{} {
+func (s *runeslice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *runes) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *runes) Rune() rune {
+func (s *runeslice) Rune() rune {
 	return s.slice[s.pos]
 }
 
-func (s *runes) Error() error {
+func (s *runeslice) Error() error {
 	return s.err
 }
 
-func (s *runes) SetError(err error) {
+func (s *runeslice) SetError(err error) {
 	s.err= err
 }
 

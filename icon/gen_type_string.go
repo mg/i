@@ -23,32 +23,32 @@ package icon
 
 import (
 	"fmt"
-	"github.com/mg/i"
+	"github.com/mg/i/ityped"
 )	
 
-type strings struct {
+type stringslice struct {
 	slice []string
 	pos  int
 	err error
 }
 
-func Strings(slice []string) i.RandomAccess {
-	return &strings {slice: slice, err:nil}
+func Strings(slice []string) ityped.RandomAccessString {
+	return &stringslice {slice: slice, err:nil}
 }
 
-func StringList(v ...string) i.RandomAccess {
-	return &strings {slice: v, err:nil}
+func StringList(v ...string) ityped.RandomAccessString {
+	return &stringslice {slice: v, err:nil}
 }
 
-func (s *strings) AtStart() bool {
+func (s *stringslice) AtStart() bool {
 	return s.pos == 0
 }
 
-func (s *strings) AtEnd() bool {
+func (s *stringslice) AtEnd() bool {
 	return s.pos >= len(s.slice)
 }
 
-func (s *strings) Next() error {
+func (s *stringslice) Next() error {
 	if s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -57,7 +57,7 @@ func (s *strings) Next() error {
 	return s.err
 }
 
-func (s *strings) Prev() error {
+func (s *stringslice) Prev() error {
 	if s.pos < 0 {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
 	} else {
@@ -66,17 +66,17 @@ func (s *strings) Prev() error {
 	return s.err
 }
 
-func (s *strings) First() error {
+func (s *stringslice) First() error {
 	s.pos= 0
 	return nil
 }
 
-func (s *strings) Last() error {
+func (s *stringslice) Last() error {
 	s.pos= len(s.slice) - 1
 	return nil
 }
 
-func (s *strings) Goto(pos int) error {
+func (s *stringslice) Goto(pos int) error {
 	s.pos= pos
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err= fmt.Errorf("Index out of bounds: %d.", s.pos)
@@ -84,11 +84,11 @@ func (s *strings) Goto(pos int) error {
 	return s.err
 }
 
-func (s *strings) Len() int {
+func (s *stringslice) Len() int {
 	return len(s.slice)
 }
 
-func (s *strings) Value() interface{} {
+func (s *stringslice) Value() interface{} {
 	if s.pos < 0 || s.pos >= len(s.slice) {
 		s.err = fmt.Errorf("Index out of bounds: %d.", s.pos)
 		return nil
@@ -96,15 +96,15 @@ func (s *strings) Value() interface{} {
 	return s.slice[s.pos]
 }
 
-func (s *strings) String() string {
+func (s *stringslice) String() string {
 	return s.slice[s.pos]
 }
 
-func (s *strings) Error() error {
+func (s *stringslice) Error() error {
 	return s.err
 }
 
-func (s *strings) SetError(err error) {
+func (s *stringslice) SetError(err error) {
 	s.err= err
 }
 

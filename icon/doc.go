@@ -37,5 +37,4 @@
 // The iterator for the generic interface{} can be constructed from a slice of
 // interfaces with the Interfaces([]interface{interface values...}) function or
 // the List function (List(values)).
-
 package icon

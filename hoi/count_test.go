@@ -42,7 +42,7 @@ func ExampleCount() {
 	// The Count iterator
 	itrCount := Count(5, list)
 	for ; !itrCount.AtEnd(); itrCount.Next() {
-		// Prints out the list: one, two, three, 1, 2, 3, 4, 5,
+		// Prints out the list: 1,2,3,4,5,
 		fmt.Printf("%v, ", itrCount.Value())
 	}
 

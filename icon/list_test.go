@@ -45,3 +45,11 @@ func ExampleList() {
 		fmt.Println(itr.Value())
 	}
 }
+
+func ExampleInterfaces() {
+	slice := []interface{}{1, "string", 3.56, 4}
+	itr := Interfaces(slice)
+	for ; !itr.AtEnd(); itr.Next() {
+		fmt.Println(itr.Value())
+	}
+}

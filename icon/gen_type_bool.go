@@ -32,10 +32,14 @@ type boolslice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of bool values.
+// Accepts a slice of bool values.
 func Bools(slice []bool) ityped.RandomAccessBool {
 	return &boolslice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of bool values.
+// Accepts a list of bool values.
 func BoolList(v ...bool) ityped.RandomAccessBool {
 	return &boolslice {slice: v, err:nil}
 }

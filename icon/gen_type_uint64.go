@@ -32,10 +32,14 @@ type uint64slice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of uint64 values.
+// Accepts a slice of uint64 values.
 func Uint64s(slice []uint64) ityped.RandomAccessUint64 {
 	return &uint64slice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of uint64 values.
+// Accepts a list of uint64 values.
 func Uint64List(v ...uint64) ityped.RandomAccessUint64 {
 	return &uint64slice {slice: v, err:nil}
 }

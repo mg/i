@@ -32,10 +32,14 @@ type int32slice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of int32 values.
+// Accepts a slice of int32 values.
 func Int32s(slice []int32) ityped.RandomAccessInt32 {
 	return &int32slice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of int32 values.
+// Accepts a list of int32 values.
 func Int32List(v ...int32) ityped.RandomAccessInt32 {
 	return &int32slice {slice: v, err:nil}
 }

@@ -32,10 +32,14 @@ type complex64slice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of complex64 values.
+// Accepts a slice of complex64 values.
 func Complex64s(slice []complex64) ityped.RandomAccessComplex64 {
 	return &complex64slice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of complex64 values.
+// Accepts a list of complex64 values.
 func Complex64List(v ...complex64) ityped.RandomAccessComplex64 {
 	return &complex64slice {slice: v, err:nil}
 }

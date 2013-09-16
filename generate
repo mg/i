@@ -286,10 +286,14 @@ type $slicestruct struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of $type values.
+// Accepts a slice of $type values.
 func $slicename(slice []$type) $sliceinterface {
 	return &$slicestruct {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of $type values.
+// Accepts a list of $type values.
 func $slicelistname(v ...$type) $sliceinterface {
 	return &$slicestruct {slice: v, err:nil}
 }

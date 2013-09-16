@@ -32,10 +32,14 @@ type float32slice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of float32 values.
+// Accepts a slice of float32 values.
 func Float32s(slice []float32) ityped.RandomAccessFloat32 {
 	return &float32slice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of float32 values.
+// Accepts a list of float32 values.
 func Float32List(v ...float32) ityped.RandomAccessFloat32 {
 	return &float32slice {slice: v, err:nil}
 }

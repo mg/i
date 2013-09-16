@@ -32,10 +32,14 @@ type runeslice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of rune values.
+// Accepts a slice of rune values.
 func Runes(slice []rune) ityped.RandomAccessRune {
 	return &runeslice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of rune values.
+// Accepts a list of rune values.
 func RuneList(v ...rune) ityped.RandomAccessRune {
 	return &runeslice {slice: v, err:nil}
 }

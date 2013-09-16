@@ -32,10 +32,14 @@ type int8slice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of int8 values.
+// Accepts a slice of int8 values.
 func Int8s(slice []int8) ityped.RandomAccessInt8 {
 	return &int8slice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of int8 values.
+// Accepts a list of int8 values.
 func Int8List(v ...int8) ityped.RandomAccessInt8 {
 	return &int8slice {slice: v, err:nil}
 }

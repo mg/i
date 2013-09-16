@@ -32,10 +32,14 @@ type complex128slice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of complex128 values.
+// Accepts a slice of complex128 values.
 func Complex128s(slice []complex128) ityped.RandomAccessComplex128 {
 	return &complex128slice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of complex128 values.
+// Accepts a list of complex128 values.
 func Complex128List(v ...complex128) ityped.RandomAccessComplex128 {
 	return &complex128slice {slice: v, err:nil}
 }

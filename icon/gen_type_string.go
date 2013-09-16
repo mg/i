@@ -32,10 +32,14 @@ type stringslice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of string values.
+// Accepts a slice of string values.
 func Strings(slice []string) ityped.RandomAccessString {
 	return &stringslice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of string values.
+// Accepts a list of string values.
 func StringList(v ...string) ityped.RandomAccessString {
 	return &stringslice {slice: v, err:nil}
 }

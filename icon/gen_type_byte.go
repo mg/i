@@ -32,10 +32,14 @@ type byteslice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of byte values.
+// Accepts a slice of byte values.
 func Bytes(slice []byte) ityped.RandomAccessByte {
 	return &byteslice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of byte values.
+// Accepts a list of byte values.
 func ByteList(v ...byte) ityped.RandomAccessByte {
 	return &byteslice {slice: v, err:nil}
 }

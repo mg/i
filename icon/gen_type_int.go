@@ -32,10 +32,14 @@ type intslice struct {
 	err error
 }
 
+// Construct a typed iterator to iterate through a slice of int values.
+// Accepts a slice of int values.
 func Ints(slice []int) ityped.RandomAccessInt {
 	return &intslice {slice: slice, err:nil}
 }
 
+// Construct a typed iterator to iterate through a slice of int values.
+// Accepts a list of int values.
 func IntList(v ...int) ityped.RandomAccessInt {
 	return &intslice {slice: v, err:nil}
 }

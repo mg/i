@@ -43,7 +43,7 @@ func ExampleBytes() {
 	}
 }
 
-func ExampleBytelList() {
+func ExampleByteList() {
 	itr := ByteList('1', 'a', 100)
 	for ; !itr.AtEnd(); itr.Next() {
 		fmt.Println(itr.Byte())
@@ -289,6 +289,28 @@ func ExampleStringList() {
 	itr := StringList("hello", "goodbye", "世界")
 	for ; !itr.AtEnd(); itr.Next() {
 		fmt.Println(itr.String())
+	}
+}
+
+func TestUint(t *testing.T) {
+	itr := Uints([]uint{1, 5, 6, 100})
+	itesting.AssertRandomAccess(t, itr, itesting.Strict)
+	itr.First()
+	itesting.AssertIteration(t, itr, uint(1), uint(5), uint(6), uint(100))
+}
+
+func ExampleUints() {
+	slice := []uint{1, 5, 6, 100}
+	itr := Uints(slice)
+	for ; !itr.AtEnd(); itr.Next() {
+		fmt.Println(itr.Uint())
+	}
+}
+
+func ExampleUintList() {
+	itr := UintList(1, 5, 6, 100)
+	for ; !itr.AtEnd(); itr.Next() {
+		fmt.Println(itr.Uint())
 	}
 }
 

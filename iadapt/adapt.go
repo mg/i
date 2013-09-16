@@ -26,7 +26,7 @@ import (
 	"github.com/mg/i/itk"
 )
 
-// Typed adapter for a Forward iteartor. Contains methods to acccess the
+// Typed adapter for a Forward iterator. Contains methods to acccess the
 // value typed as any of the basic Go types.
 type ForwardItr struct {
 	itk.WForward
@@ -40,7 +40,7 @@ func Forward(itr i.Forward) *ForwardItr {
 	return &f
 }
 
-// Typed adapter for a Bounded At start iteartor. Contains methods to acccess the
+// Typed adapter for a Bounded At start iterator. Contains methods to acccess the
 // value typed as any of the basic Go types.
 type BoundedAtStartItr struct {
 	itk.WBoundedAtStart
@@ -54,7 +54,7 @@ func BoundedAtStart(itr i.BoundedAtStart) *BoundedAtStartItr {
 	return &b
 }
 
-// Typed adapter for a BiDirecitonal iteartor. Contains methods to acccess the
+// Typed adapter for a BiDirecitonal iterator. Contains methods to acccess the
 // value typed as any of the basic Go types.
 type BiDirectionalItr struct {
 	itk.WBiDirectional
@@ -68,7 +68,7 @@ func BiDirectional(itr i.BiDirectional) *BiDirectionalItr {
 	return &b
 }
 
-// Typed adapter for a Bounded iteartor. Contains methods to acccess the
+// Typed adapter for a Bounded iterator. Contains methods to acccess the
 // value typed as any of the basic Go types.
 type BoundedItr struct {
 	itk.WBounded
@@ -82,7 +82,7 @@ func Bounded(itr i.Bounded) *BoundedItr {
 	return &b
 }
 
-// Typed adapter for a Random Access iteartor. Contains methods to acccess the
+// Typed adapter for a Random Access iterator. Contains methods to acccess the
 // value typed as any of the basic Go types.
 type RandomAccessItr struct {
 	itk.WRandomAccess

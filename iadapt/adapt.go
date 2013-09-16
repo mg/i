@@ -26,50 +26,70 @@ import (
 	"github.com/mg/i/itk"
 )
 
+// Typed adapter for a Forward iteartor. Contains methods to acccess the
+// value typed as any of the basic Go types.
 type ForwardItr struct {
 	itk.WForward
 }
 
+// Wrap a Forward iterator in a structure that has typed methods to access
+// the value of the iterator.
 func Forward(itr i.Forward) *ForwardItr {
 	f := ForwardItr{}
 	f.WForward = *(itk.WrapForward(itr))
 	return &f
 }
 
+// Typed adapter for a Bounded At start iteartor. Contains methods to acccess the
+// value typed as any of the basic Go types.
 type BoundedAtStartItr struct {
 	itk.WBoundedAtStart
 }
 
+// Wrap a Bounded At Start iterator in a structure that has typed methods to access
+// the value of the iterator.
 func BoundedAtStart(itr i.BoundedAtStart) *BoundedAtStartItr {
 	b := BoundedAtStartItr{}
 	b.WBoundedAtStart = *(itk.WrapBoundedAtStart(itr))
 	return &b
 }
 
+// Typed adapter for a BiDirecitonal iteartor. Contains methods to acccess the
+// value typed as any of the basic Go types.
 type BiDirectionalItr struct {
 	itk.WBiDirectional
 }
 
+// Wrap a BiDirectional iterator in a structure that has typed methods to access
+// the value of the iterator.
 func BiDirectional(itr i.BiDirectional) *BiDirectionalItr {
 	b := BiDirectionalItr{}
 	b.WBiDirectional = *(itk.WrapBiDirectional(itr))
 	return &b
 }
 
+// Typed adapter for a Bounded iteartor. Contains methods to acccess the
+// value typed as any of the basic Go types.
 type BoundedItr struct {
 	itk.WBounded
 }
 
+// Wrap a Bounded iterator in a structure that has typed methods to access
+// the value of the iterator.
 func Bounded(itr i.Bounded) *BoundedItr {
 	b := BoundedItr{}
 	b.WBounded = *(itk.WrapBounded(itr))
 	return &b
 }
 
+// Typed adapter for a Random Access iteartor. Contains methods to acccess the
+// value typed as any of the basic Go types.
 type RandomAccessItr struct {
 	itk.WRandomAccess
 }
 
+// Wrap a Random Access iterator in a structure that has typed methods to access
+// the value of the iterator.
 func RandomAccess(itr i.RandomAccess) *RandomAccessItr {
 	r := RandomAccessItr{}
 	r.WRandomAccess = *(itk.WrapRandomAccess(itr))

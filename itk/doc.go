@@ -32,18 +32,18 @@
 // E.g. LyingIterator is a RandomAccess iterator that lies about its length.
 // It supports all other methods defined in i.RandomAccess through the wrapper.
 //
-// type lyingiterator struct {
-//   itk.WRandomAccess
-// }
+//   type lyingiterator struct {
+//     itk.WRandomAccess
+//   }
 //
-// func LyingIterator( itr i.RandomAccess) i.RandomAccess {
-//   var li lyingiterator
-//   li.WRandomAccess= *(itk.WrapRandomAccess(itr))
-//   return &li
-// }
+//   func LyingIterator( itr i.RandomAccess) i.RandomAccess {
+//     var li lyingiterator
+//     li.WRandomAccess= *(itk.WrapRandomAccess(itr))
+//     return &li
+//   }
 //
-// func (li *lyingiterator) {
-//   return li.WRandomAccess.Len()/2
-// }
+//   func (li *lyingiterator) {
+//     return li.WRandomAccess.Len()/2
+//   }
 //
 package itk

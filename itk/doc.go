@@ -21,4 +21,29 @@
 
 // The Iterator ToolKit package (itk) provides reusable components
 // to help with the construction of iterators.
+//
+// Often when we write iterators we are simply writing adapters that wrap
+// around existing iterators and change some but not all of the methods.
+// The wrappers in itk exists to reduce the amount of boilerplate code we
+// need to write in those cases. Simply use composition to wrap the iterator,
+// provide the logic for the methods you whish to change, and let the wrapper
+// handle the rest.
+//
+// E.g. LyingIterator is a RandomAccess iterator that lies about its length.
+// It supports all other methods defined in i.RandomAccess through the wrapper.
+//
+// type lyingiterator struct {
+//   itk.WRandomAccess
+// }
+//
+// func LyingIterator( itr i.RandomAccess) i.RandomAccess {
+//   var li lyingiterator
+//   li.WRandomAccess= *(itk.WrapRandomAccess(itr))
+//   return &li
+// }
+//
+// func (li *lyingiterator) {
+//   return li.WRandomAccess.Len()/2
+// }
+//
 package itk

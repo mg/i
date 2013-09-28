@@ -23,7 +23,17 @@ package itk
 
 import (
 	"github.com/mg/i"
+	"reflect"
 )
+
+// Gives access to wrapped methods
+type wrappedForward interface {
+	getValueMethod() func() interface{}
+	getErrorMethod() func() error
+	getSetErrorMethod() func(error)
+	getNextMethod() func() error
+	getAtEndMethod() func() bool
+}
 
 // Compose this structure in your iterator to wrap a Forward iterator
 // within your own iterator. It contains function pointers that point
@@ -50,12 +60,41 @@ type WForward struct {
 // the F iterator wrapped.
 func WrapForward(itr i.Forward) *WForward {
 	wf := WForward{}
-	if wrapped, ok := itr.(*WForward); ok {
-		wf.value = wrapped.value
-		wf.err = wrapped.err
-		wf.seterr = wrapped.seterr
-		wf.next = wrapped.next
-		wf.atEnd = wrapped.atEnd
+
+	t := reflect.TypeOf(itr)
+	isWrapper := false
+	if t.Kind() == reflect.Ptr {
+		_, isWrapper = t.Elem().FieldByName("WForward")
+	} else {
+		_, isWrapper = t.FieldByName("WForward")
+	}
+	if isWrapper {
+		wrapped, _ := itr.(wrappedForward)
+		if _, ok := t.MethodByName("Value"); !ok {
+			wf.value = wrapped.getValueMethod()
+		} else {
+			wf.value = itr.Value
+		}
+		if _, ok := t.MethodByName("Error"); !ok {
+			wf.err = wrapped.getErrorMethod()
+		} else {
+			wf.err = itr.Error
+		}
+		if _, ok := t.MethodByName("SetError"); !ok {
+			wf.seterr = wrapped.getSetErrorMethod()
+		} else {
+			wf.seterr = itr.SetError
+		}
+		if _, ok := t.MethodByName("Next"); !ok {
+			wf.next = wrapped.getNextMethod()
+		} else {
+			wf.next = itr.Next
+		}
+		if _, ok := t.MethodByName("AtEnd"); !ok {
+			wf.atEnd = wrapped.getAtEndMethod()
+		} else {
+			wf.atEnd = itr.AtEnd
+		}
 	} else {
 		wf.value = itr.Value
 		wf.err = itr.Error
@@ -91,6 +130,33 @@ func (wf *WForward) AtEnd() bool {
 	return wf.atEnd()
 }
 
+// Methods to access wrapped functions
+func (wf *WForward) getValueMethod() func() interface{} {
+	return wf.value
+}
+
+func (wf *WForward) getErrorMethod() func() error {
+	return wf.err
+}
+
+func (wf *WForward) getSetErrorMethod() func(error) {
+	return wf.seterr
+}
+
+func (wf *WForward) getNextMethod() func() error {
+	return wf.next
+}
+
+func (wf *WForward) getAtEndMethod() func() bool {
+	return wf.atEnd
+}
+
+// Gives access to wrapped methods
+type wrappedBiDirectional interface {
+	getPrevMethod() func() error
+	getAtStartMethod() func() bool
+}
+
 // Compose this structure in your iterator to wrap a BiDirectional iterator
 // within your own iterator. It contains function pointers that point
 // to all the methods of the wrapped BiDirectional iterator.
@@ -116,9 +182,25 @@ func WrapBiDirectional(itr i.BiDirectional) *WBiDirectional {
 	wbd := WBiDirectional{}
 	wbd.WForward = *(WrapForward(itr))
 
-	if wrapped, ok := itr.(*WBiDirectional); ok {
-		wbd.prev = wrapped.prev
-		wbd.atStart = wrapped.atStart
+	t := reflect.TypeOf(itr)
+	isWrapper := false
+	if t.Kind() == reflect.Ptr {
+		_, isWrapper = t.Elem().FieldByName("WBiDirectional")
+	} else {
+		_, isWrapper = t.FieldByName("WBiDirectional")
+	}
+	if isWrapper {
+		wrapped, _ := itr.(wrappedBiDirectional)
+		if _, ok := t.MethodByName("Prev"); !ok {
+			wbd.prev = wrapped.getPrevMethod()
+		} else {
+			wbd.prev = itr.Prev
+		}
+		if _, ok := t.MethodByName("AtStart"); !ok {
+			wbd.atStart = wrapped.getAtStartMethod()
+		} else {
+			wbd.atStart = itr.AtStart
+		}
 	} else {
 		wbd.prev = itr.Prev
 		wbd.atStart = itr.AtStart
@@ -135,6 +217,20 @@ func (wbd *WBiDirectional) Prev() error {
 // Forwards the call to the AtStart() method of the wrapped iterator.
 func (wbd *WBiDirectional) AtStart() bool {
 	return wbd.atStart()
+}
+
+// Methods to access wrapped functions
+func (wbd *WBiDirectional) getPrevMethod() func() error {
+	return wbd.prev
+}
+
+func (wbd *WBiDirectional) getAtStartMethod() func() bool {
+	return wbd.atStart
+}
+
+// Gives access to wrapped methods
+type wrappedBondedAtStart interface {
+	getFirstMethod() func() error
 }
 
 // Compose this structure in your iterator to wrap a BoundedAtStart iterator
@@ -161,8 +257,20 @@ func WrapBoundedAtStart(itr i.BoundedAtStart) *WBoundedAtStart {
 	wbas := WBoundedAtStart{}
 	wbas.WForward = *(WrapForward(itr))
 
-	if wrapped, ok := itr.(*WBoundedAtStart); ok {
-		wbas.first = wrapped.first
+	t := reflect.TypeOf(itr)
+	isWrapper := false
+	if t.Kind() == reflect.Ptr {
+		_, isWrapper = t.Elem().FieldByName("WBoundedAtStart")
+	} else {
+		_, isWrapper = t.FieldByName("WBoundedAtStart")
+	}
+	if isWrapper {
+		wrapped, _ := itr.(wrappedBondedAtStart)
+		if _, ok := t.MethodByName("First"); !ok {
+			wbas.first = wrapped.getFirstMethod()
+		} else {
+			wbas.first = itr.First
+		}
 	} else {
 		wbas.first = itr.First
 	}
@@ -173,6 +281,17 @@ func WrapBoundedAtStart(itr i.BoundedAtStart) *WBoundedAtStart {
 // Forwards the call to the First() method of the wrapped iterator.
 func (wbas *WBoundedAtStart) First() error {
 	return wbas.first()
+}
+
+// Methods to access wrapped functions
+func (wbas *WBoundedAtStart) getFirstMethod() func() error {
+	return wbas.first
+}
+
+// Gives access to wrapped methods
+type wrappedBonded interface {
+	getFirstMethod() func() error
+	getLastMethod() func() error
 }
 
 // Compose this structure in your iterator to wrap a Bounded iterator
@@ -200,9 +319,25 @@ func WrapBounded(itr i.Bounded) *WBounded {
 	wb := WBounded{}
 	wb.WBiDirectional = *(WrapBiDirectional(itr))
 
-	if wrapped, ok := itr.(*WBounded); ok {
-		wb.first = wrapped.first
-		wb.last = wrapped.last
+	t := reflect.TypeOf(itr)
+	isWrapper := false
+	if t.Kind() == reflect.Ptr {
+		_, isWrapper = t.Elem().FieldByName("WBounded")
+	} else {
+		_, isWrapper = t.FieldByName("WBounded")
+	}
+	if isWrapper {
+		wrapped, _ := itr.(wrappedBonded)
+		if _, ok := t.MethodByName("First"); !ok {
+			wb.first = wrapped.getFirstMethod()
+		} else {
+			wb.first = itr.First
+		}
+		if _, ok := t.MethodByName("Last"); !ok {
+			wb.last = wrapped.getLastMethod()
+		} else {
+			wb.last = itr.Last
+		}
 	} else {
 		wb.first = itr.First
 		wb.last = itr.Last
@@ -219,6 +354,21 @@ func (wb *WBounded) First() error {
 // Forwards the call to the Last() method of the wrapped iterator.
 func (wb *WBounded) Last() error {
 	return wb.last()
+}
+
+// Methods to access wrapped functions
+func (wb *WBounded) getFirstMethod() func() error {
+	return wb.first
+}
+
+func (wb *WBounded) getLastMethod() func() error {
+	return wb.last
+}
+
+// Gives access to wrapped methods
+type wrappedRandomAccess interface {
+	getGoToMethod() func(int) error
+	getLenMethod() func() int
 }
 
 // Compose this structure in your iterator to wrap a RandomAccess iterator
@@ -246,9 +396,25 @@ func WrapRandomAccess(itr i.RandomAccess) *WRandomAccess {
 	wra := WRandomAccess{}
 	wra.WBounded = *(WrapBounded(itr))
 
-	if wrapped, ok := itr.(*WRandomAccess); ok {
-		wra.goTo = wrapped.goTo
-		wra.length = wrapped.length
+	t := reflect.TypeOf(itr)
+	isWrapper := false
+	if t.Kind() == reflect.Ptr {
+		_, isWrapper = t.Elem().FieldByName("WRandomAccess")
+	} else {
+		_, isWrapper = t.FieldByName("WRandomAccess")
+	}
+	if isWrapper {
+		wrapped, _ := itr.(wrappedRandomAccess)
+		if _, ok := t.MethodByName("GoTo"); !ok {
+			wra.goTo = wrapped.getGoToMethod()
+		} else {
+			wra.goTo = itr.Goto
+		}
+		if _, ok := t.MethodByName("Len"); !ok {
+			wra.length = wrapped.getLenMethod()
+		} else {
+			wra.length = itr.Len
+		}
 	} else {
 		wra.goTo = itr.Goto
 		wra.length = itr.Len
@@ -265,4 +431,13 @@ func (wra *WRandomAccess) Goto(idx int) error {
 // Forwards the call to the Len() method of the wrapped iterator.
 func (wra *WRandomAccess) Len() int {
 	return wra.length()
+}
+
+// Methods to access wrapped functions
+func (wra *WRandomAccess) getGoToMethod() func(int) error {
+	return wra.goTo
+}
+
+func (wra *WRandomAccess) getLenMethod() func() int {
+	return wra.length
 }

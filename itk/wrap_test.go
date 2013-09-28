@@ -22,38 +22,52 @@
 package itk
 
 import (
+	"github.com/mg/i"
+	"github.com/mg/i/icon"
+	"github.com/mg/i/itesting"
 	"testing"
 )
 
-func TestWrapForward(t *testing.T) {
-	/*list := List(1, 2, 3, 4, 5)
-	AssertForward(t, WrapForward(WrapForward(list)), 5, Strict)
-	list.SetError(nil)
-	list.First()
-	AssertIteration(
-		t, WrapForward(WrapForward(list)),
-		1, 2, 3, 4, 5)
+type wrap1s struct {
+	WRandomAccess
+}
 
-	list.SetError(nil)
-	list.First()
-	w1 := Filter(func(itr Iterator) bool {
-		v, _ := itr.Value().(int)
-		return v < 4
-	}, list)
-	w2 := Map(func(itr Iterator) interface{} {
-		v, _ := itr.Value().(int)
-		return v * 2
-	}, w1)
-	AssertForward(t, w2, 3, Strict)
-	list.SetError(nil)
-	list.First()
-	w1 = Filter(func(itr Iterator) bool {
-		v, _ := itr.Value().(int)
-		return v < 4
-	}, list)
-	w2 = Map(func(itr Iterator) interface{} {
-		v, _ := itr.Value().(int)
-		return v * 2
-	}, w1)
-	AssertIteration(t, w2, 2, 4, 6)*/
+func wrap1(itr i.RandomAccess) i.RandomAccess {
+	var w wrap1s
+	w.WRandomAccess = *(WrapRandomAccess(itr))
+	return &w
+}
+
+func (w *wrap1s) Value() interface{} {
+	i, _ := w.WRandomAccess.Value().(int)
+	return i + 1
+}
+
+type wrap2s struct {
+	WRandomAccess
+}
+
+func wrap2(itr i.RandomAccess) i.RandomAccess {
+	var w wrap2s
+	w.WRandomAccess = *(WrapRandomAccess(itr))
+	return &w
+}
+
+func (w *wrap2s) Next() error {
+	return w.WRandomAccess.Next()
+}
+
+func TestWrapForward(t *testing.T) {
+	itesting.AssertRandomAccess(t, wrap1(icon.List(1, 2, 3, 4, 5)), itesting.Strict)
+	itesting.AssertRandomAccess(t, wrap2(icon.List(1, 2, 3, 4, 5)), itesting.Strict)
+	itesting.AssertRandomAccess(t, wrap2(wrap1(wrap1(icon.List(1, 2, 3, 4, 5)))), itesting.Strict)
+	itesting.AssertIteration(
+		t, wrap2(icon.List(1, 2, 3, 4, 5)),
+		1, 2, 3, 4, 5)
+	itesting.AssertIteration(
+		t, wrap1(wrap1(icon.List(1, 2, 3, 4, 5))),
+		3, 4, 5, 6, 7)
+	itesting.AssertIteration(
+		t, wrap1(wrap2(wrap1(wrap1(icon.List(1, 2, 3, 4, 5))))),
+		4, 5, 6, 7, 8)
 }

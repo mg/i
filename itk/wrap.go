@@ -43,11 +43,7 @@ type WForward struct {
 //
 // Now if you don't e.g. provide an implementation for the Value()
 // method, a call to ITR.Value() will be forwarded to F.Value() by
-// WForward. To guard against a chain of useless forwards, the
-// WrapForward checks if F is a WForward iterator. If so, it simply
-// copies the values of the mehtods from F so any calls to e.g.
-// ITR.Value() will result in a direct call of the Value() method
-// the F iterator wrapped.
+// WForward.
 func WrapForward(itr i.Forward) *WForward {
 	wf := WForward{}
 
@@ -101,11 +97,7 @@ type WBiDirectional struct {
 //
 // Now if you don't e.g. provide an implementation for the Value()
 // method, a call to ITR.Value() will be forwarded to B.Value() by
-// WBiDirectional. To guard against a chain of useless forwards, the
-// WrapBiDirectional checks if B is a WBiDirectional iterator. If so,
-// it simply copies the values of the mehtods from B so any calls to e.g.
-// ITR.Value() will result in a direct call of the Value() method
-// the B iterator wrapped.
+// WBiDirectional.
 func WrapBiDirectional(itr i.BiDirectional) *WBiDirectional {
 	wbd := WBiDirectional{}
 	wbd.WForward = *(WrapForward(itr))
@@ -141,11 +133,7 @@ type WBoundedAtStart struct {
 //
 // Now if you don't e.g. provide an implementation for the Value()
 // method, a call to ITR.Value() will be forwarded to B.Value() by
-// WFBoundedAtStart. To guard against a chain of useless forwards, the
-// WrapBoundedAtStart checks if B is a WBoundedAtStart iterator. If so,
-// it simply copies the values of the mehtods from B so any calls to e.g.
-// ITR.Value() will result in a direct call of the Value() method
-// the B iterator wrapped.
+// WFBoundedAtStart.
 func WrapBoundedAtStart(itr i.BoundedAtStart) *WBoundedAtStart {
 	wbas := WBoundedAtStart{}
 	wbas.WForward = *(WrapForward(itr))
@@ -176,11 +164,7 @@ type WBounded struct {
 //
 // Now if you don't e.g. provide an implementation for the Value()
 // method, a call to ITR.Value() will be forwarded to B.Value() by
-// WBounded. To guard against a chain of useless forwards, the
-// WrapBounded checks if B is a WBounded iterator. If so, it simply
-// copies the values of the mehtods from B so any calls to e.g.
-// ITR.Value() will result in a direct call of the Value() method
-// the B iterator wrapped.
+// WBounded.
 func WrapBounded(itr i.Bounded) *WBounded {
 	wb := WBounded{}
 	wb.WBiDirectional = *(WrapBiDirectional(itr))
@@ -217,11 +201,7 @@ type WRandomAccess struct {
 //
 // Now if you don't e.g. provide an implementation for the Value()
 // method, a call to ITR.Value() will be forwarded to R.Value() by
-// WRandomAccess. To guard against a chain of useless forwards, the
-// WrapRandomAccess checks if R is a WRandomAccess iterator. If so, it simply
-// copies the values of the mehtods from R so any calls to e.g.
-// ITR.Value() will result in a direct call of the Value() method
-// the R iterator wrapped.
+// WRandomAccess.
 func WrapRandomAccess(itr i.RandomAccess) *WRandomAccess {
 	wra := WRandomAccess{}
 	wra.WBounded = *(WrapBounded(itr))

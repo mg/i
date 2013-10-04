@@ -19,11 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package iadapt
+package ityped
 
 import "fmt"
 
-// Adapter for uint types on Forward iterators. Provides a typecasting method 
+// Adapter for uint types on Forward iterators. Provides a typecasting method
 // from interface{} to uint.
 // Panics if value is not of uint type.
 func (a *ForwardItr) Uint() uint {
@@ -34,7 +34,7 @@ func (a *ForwardItr) Uint() uint {
 	return v
 }
 
-// Adapter for uint types on Forward iterators. Provides a typecasting method 
+// Adapter for uint types on Forward iterators. Provides a typecasting method
 // from interface{} to uint.
 // Returns (value, false) if type is of uint type.
 // Returns (default value, true) if type is not of uint type.
@@ -46,7 +46,7 @@ func (a *ForwardItr) UintOr(def uint) (uint, bool) {
 	return v, false
 }
 
-// Adapter for uint types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for uint types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to uint.
 // Panics if value is not of uint type.
 func (a *BiDirectionalItr) Uint() uint {
@@ -57,7 +57,7 @@ func (a *BiDirectionalItr) Uint() uint {
 	return v
 }
 
-// Adapter for uint types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for uint types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to uint.
 // Returns (value, false) if type is of uint type.
 // Returns (default value, true) if type is not of uint type.
@@ -69,7 +69,7 @@ func (a *BiDirectionalItr) UintOr(def uint) (uint, bool) {
 	return v, false
 }
 
-// Adapter for uint types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for uint types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to uint.
 // Panics if value is not of uint type.
 func (a *BoundedAtStartItr) Uint() uint {
@@ -80,7 +80,7 @@ func (a *BoundedAtStartItr) Uint() uint {
 	return v
 }
 
-// Adapter for uint types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for uint types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to uint.
 // Returns (value, false) if type is of uint type.
 // Returns (default value, true) if type is not of uint type.
@@ -92,7 +92,7 @@ func (a *BoundedAtStartItr) UintOr(def uint) (uint, bool) {
 	return v, false
 }
 
-// Adapter for uint types on Bounded iterators. Provides a typecasting method 
+// Adapter for uint types on Bounded iterators. Provides a typecasting method
 // from interface{} to uint.
 // Panics if value is not of uint type.
 func (a *BoundedItr) Uint() uint {
@@ -103,7 +103,7 @@ func (a *BoundedItr) Uint() uint {
 	return v
 }
 
-// Adapter for uint types on Bounded iterators. Provides a typecasting method 
+// Adapter for uint types on Bounded iterators. Provides a typecasting method
 // from interface{} to uint.
 // Returns (value, false) if type is of uint type.
 // Returns (default value, true) if type is not of uint type.
@@ -115,7 +115,7 @@ func (a *BoundedItr) UintOr(def uint) (uint, bool) {
 	return v, false
 }
 
-// Adapter for uint types on RandomAccess iterator. Provides a typecasting method 
+// Adapter for uint types on RandomAccess iterator. Provides a typecasting method
 // from interface{} to uint.
 // Panics if value is not of uint type.
 func (a *RandomAccessItr) Uint() uint {
@@ -126,7 +126,7 @@ func (a *RandomAccessItr) Uint() uint {
 	return v
 }
 
-// Adapter for uint types on RandomAccess iterators. Provides a typecasting method 
+// Adapter for uint types on RandomAccess iterators. Provides a typecasting method
 // from interface{} to uint.
 // Returns (value, false) if type is of uint type.
 // Returns (default value, true) if type is not of uint type.

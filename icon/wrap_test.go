@@ -19,17 +19,55 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// The Iterator Adapters (iadapt) package provides adaptors that give access to
-// functions that return the current value from the adapted iterator in a typed
-// way.
-//
-// The purpose of the adapters is to be added to the end of a chain of iterators
-// to typecast the final value of the chain. The only function they provide are
-// various typed functions that access the value of the iterator and perform
-// a type assertion and return the resulting value. Every function comes in two
-// forms. E.g the boolean variant is Bool(), which returns the value as a bolean
-// value or panics if it fails the type assertion, or BoolOr(bool), witch returns
-// the boolean value of the iterator and true if the type assertions succedes and
-// returns the supplied boolean value and false if the type assertion fails. This
-// pattern is repeated for all the basic types of Go.
-package iadapt
+package icon
+
+import (
+	"github.com/mg/i"
+	"github.com/mg/i/itesting"
+	"github.com/mg/i/itk"
+	"testing"
+)
+
+type wrap1s struct {
+	itk.WRandomAccess
+}
+
+func wrap1(itr i.RandomAccess) i.RandomAccess {
+	var w wrap1s
+	w.WRandomAccess = *(itk.WrapRandomAccess(itr))
+	return &w
+}
+
+func (w *wrap1s) Value() interface{} {
+	i, _ := w.WRandomAccess.Value().(int)
+	return i + 1
+}
+
+type wrap2s struct {
+	itk.WRandomAccess
+}
+
+func wrap2(itr i.RandomAccess) i.RandomAccess {
+	var w wrap2s
+	w.WRandomAccess = *(itk.WrapRandomAccess(itr))
+	return &w
+}
+
+func (w *wrap2s) Next() error {
+	return w.WRandomAccess.Next()
+}
+
+func TestWrapForward(t *testing.T) {
+	itesting.AssertRandomAccess(t, wrap1(List(1, 2, 3, 4, 5)), itesting.Strict)
+	itesting.AssertRandomAccess(t, wrap2(List(1, 2, 3, 4, 5)), itesting.Strict)
+	itesting.AssertRandomAccess(t, wrap2(wrap1(wrap1(List(1, 2, 3, 4, 5)))), itesting.Strict)
+	itesting.AssertIteration(
+		t, wrap2(List(1, 2, 3, 4, 5)),
+		1, 2, 3, 4, 5)
+	itesting.AssertIteration(
+		t, wrap1(wrap1(List(1, 2, 3, 4, 5))),
+		3, 4, 5, 6, 7)
+	itesting.AssertIteration(
+		t, wrap1(wrap2(wrap1(wrap1(List(1, 2, 3, 4, 5))))),
+		4, 5, 6, 7, 8)
+}

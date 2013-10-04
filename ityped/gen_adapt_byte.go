@@ -19,11 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package iadapt
+package ityped
 
 import "fmt"
 
-// Adapter for byte types on Forward iterators. Provides a typecasting method 
+// Adapter for byte types on Forward iterators. Provides a typecasting method
 // from interface{} to byte.
 // Panics if value is not of byte type.
 func (a *ForwardItr) Byte() byte {
@@ -34,7 +34,7 @@ func (a *ForwardItr) Byte() byte {
 	return v
 }
 
-// Adapter for byte types on Forward iterators. Provides a typecasting method 
+// Adapter for byte types on Forward iterators. Provides a typecasting method
 // from interface{} to byte.
 // Returns (value, false) if type is of byte type.
 // Returns (default value, true) if type is not of byte type.
@@ -46,7 +46,7 @@ func (a *ForwardItr) ByteOr(def byte) (byte, bool) {
 	return v, false
 }
 
-// Adapter for byte types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for byte types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to byte.
 // Panics if value is not of byte type.
 func (a *BiDirectionalItr) Byte() byte {
@@ -57,7 +57,7 @@ func (a *BiDirectionalItr) Byte() byte {
 	return v
 }
 
-// Adapter for byte types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for byte types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to byte.
 // Returns (value, false) if type is of byte type.
 // Returns (default value, true) if type is not of byte type.
@@ -69,7 +69,7 @@ func (a *BiDirectionalItr) ByteOr(def byte) (byte, bool) {
 	return v, false
 }
 
-// Adapter for byte types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for byte types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to byte.
 // Panics if value is not of byte type.
 func (a *BoundedAtStartItr) Byte() byte {
@@ -80,7 +80,7 @@ func (a *BoundedAtStartItr) Byte() byte {
 	return v
 }
 
-// Adapter for byte types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for byte types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to byte.
 // Returns (value, false) if type is of byte type.
 // Returns (default value, true) if type is not of byte type.
@@ -92,7 +92,7 @@ func (a *BoundedAtStartItr) ByteOr(def byte) (byte, bool) {
 	return v, false
 }
 
-// Adapter for byte types on Bounded iterators. Provides a typecasting method 
+// Adapter for byte types on Bounded iterators. Provides a typecasting method
 // from interface{} to byte.
 // Panics if value is not of byte type.
 func (a *BoundedItr) Byte() byte {
@@ -103,7 +103,7 @@ func (a *BoundedItr) Byte() byte {
 	return v
 }
 
-// Adapter for byte types on Bounded iterators. Provides a typecasting method 
+// Adapter for byte types on Bounded iterators. Provides a typecasting method
 // from interface{} to byte.
 // Returns (value, false) if type is of byte type.
 // Returns (default value, true) if type is not of byte type.
@@ -115,7 +115,7 @@ func (a *BoundedItr) ByteOr(def byte) (byte, bool) {
 	return v, false
 }
 
-// Adapter for byte types on RandomAccess iterator. Provides a typecasting method 
+// Adapter for byte types on RandomAccess iterator. Provides a typecasting method
 // from interface{} to byte.
 // Panics if value is not of byte type.
 func (a *RandomAccessItr) Byte() byte {
@@ -126,7 +126,7 @@ func (a *RandomAccessItr) Byte() byte {
 	return v
 }
 
-// Adapter for byte types on RandomAccess iterators. Provides a typecasting method 
+// Adapter for byte types on RandomAccess iterators. Provides a typecasting method
 // from interface{} to byte.
 // Returns (value, false) if type is of byte type.
 // Returns (default value, true) if type is not of byte type.

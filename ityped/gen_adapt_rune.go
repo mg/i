@@ -19,11 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package iadapt
+package ityped
 
 import "fmt"
 
-// Adapter for rune types on Forward iterators. Provides a typecasting method 
+// Adapter for rune types on Forward iterators. Provides a typecasting method
 // from interface{} to rune.
 // Panics if value is not of rune type.
 func (a *ForwardItr) Rune() rune {
@@ -34,7 +34,7 @@ func (a *ForwardItr) Rune() rune {
 	return v
 }
 
-// Adapter for rune types on Forward iterators. Provides a typecasting method 
+// Adapter for rune types on Forward iterators. Provides a typecasting method
 // from interface{} to rune.
 // Returns (value, false) if type is of rune type.
 // Returns (default value, true) if type is not of rune type.
@@ -46,7 +46,7 @@ func (a *ForwardItr) RuneOr(def rune) (rune, bool) {
 	return v, false
 }
 
-// Adapter for rune types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for rune types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to rune.
 // Panics if value is not of rune type.
 func (a *BiDirectionalItr) Rune() rune {
@@ -57,7 +57,7 @@ func (a *BiDirectionalItr) Rune() rune {
 	return v
 }
 
-// Adapter for rune types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for rune types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to rune.
 // Returns (value, false) if type is of rune type.
 // Returns (default value, true) if type is not of rune type.
@@ -69,7 +69,7 @@ func (a *BiDirectionalItr) RuneOr(def rune) (rune, bool) {
 	return v, false
 }
 
-// Adapter for rune types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for rune types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to rune.
 // Panics if value is not of rune type.
 func (a *BoundedAtStartItr) Rune() rune {
@@ -80,7 +80,7 @@ func (a *BoundedAtStartItr) Rune() rune {
 	return v
 }
 
-// Adapter for rune types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for rune types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to rune.
 // Returns (value, false) if type is of rune type.
 // Returns (default value, true) if type is not of rune type.
@@ -92,7 +92,7 @@ func (a *BoundedAtStartItr) RuneOr(def rune) (rune, bool) {
 	return v, false
 }
 
-// Adapter for rune types on Bounded iterators. Provides a typecasting method 
+// Adapter for rune types on Bounded iterators. Provides a typecasting method
 // from interface{} to rune.
 // Panics if value is not of rune type.
 func (a *BoundedItr) Rune() rune {
@@ -103,7 +103,7 @@ func (a *BoundedItr) Rune() rune {
 	return v
 }
 
-// Adapter for rune types on Bounded iterators. Provides a typecasting method 
+// Adapter for rune types on Bounded iterators. Provides a typecasting method
 // from interface{} to rune.
 // Returns (value, false) if type is of rune type.
 // Returns (default value, true) if type is not of rune type.
@@ -115,7 +115,7 @@ func (a *BoundedItr) RuneOr(def rune) (rune, bool) {
 	return v, false
 }
 
-// Adapter for rune types on RandomAccess iterator. Provides a typecasting method 
+// Adapter for rune types on RandomAccess iterator. Provides a typecasting method
 // from interface{} to rune.
 // Panics if value is not of rune type.
 func (a *RandomAccessItr) Rune() rune {
@@ -126,7 +126,7 @@ func (a *RandomAccessItr) Rune() rune {
 	return v
 }
 
-// Adapter for rune types on RandomAccess iterators. Provides a typecasting method 
+// Adapter for rune types on RandomAccess iterators. Provides a typecasting method
 // from interface{} to rune.
 // Returns (value, false) if type is of rune type.
 // Returns (default value, true) if type is not of rune type.

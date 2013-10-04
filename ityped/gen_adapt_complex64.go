@@ -19,11 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package iadapt
+package ityped
 
 import "fmt"
 
-// Adapter for complex64 types on Forward iterators. Provides a typecasting method 
+// Adapter for complex64 types on Forward iterators. Provides a typecasting method
 // from interface{} to complex64.
 // Panics if value is not of complex64 type.
 func (a *ForwardItr) Complex64() complex64 {
@@ -34,7 +34,7 @@ func (a *ForwardItr) Complex64() complex64 {
 	return v
 }
 
-// Adapter for complex64 types on Forward iterators. Provides a typecasting method 
+// Adapter for complex64 types on Forward iterators. Provides a typecasting method
 // from interface{} to complex64.
 // Returns (value, false) if type is of complex64 type.
 // Returns (default value, true) if type is not of complex64 type.
@@ -46,7 +46,7 @@ func (a *ForwardItr) Complex64Or(def complex64) (complex64, bool) {
 	return v, false
 }
 
-// Adapter for complex64 types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for complex64 types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to complex64.
 // Panics if value is not of complex64 type.
 func (a *BiDirectionalItr) Complex64() complex64 {
@@ -57,7 +57,7 @@ func (a *BiDirectionalItr) Complex64() complex64 {
 	return v
 }
 
-// Adapter for complex64 types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for complex64 types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to complex64.
 // Returns (value, false) if type is of complex64 type.
 // Returns (default value, true) if type is not of complex64 type.
@@ -69,7 +69,7 @@ func (a *BiDirectionalItr) Complex64Or(def complex64) (complex64, bool) {
 	return v, false
 }
 
-// Adapter for complex64 types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for complex64 types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to complex64.
 // Panics if value is not of complex64 type.
 func (a *BoundedAtStartItr) Complex64() complex64 {
@@ -80,7 +80,7 @@ func (a *BoundedAtStartItr) Complex64() complex64 {
 	return v
 }
 
-// Adapter for complex64 types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for complex64 types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to complex64.
 // Returns (value, false) if type is of complex64 type.
 // Returns (default value, true) if type is not of complex64 type.
@@ -92,7 +92,7 @@ func (a *BoundedAtStartItr) Complex64Or(def complex64) (complex64, bool) {
 	return v, false
 }
 
-// Adapter for complex64 types on Bounded iterators. Provides a typecasting method 
+// Adapter for complex64 types on Bounded iterators. Provides a typecasting method
 // from interface{} to complex64.
 // Panics if value is not of complex64 type.
 func (a *BoundedItr) Complex64() complex64 {
@@ -103,7 +103,7 @@ func (a *BoundedItr) Complex64() complex64 {
 	return v
 }
 
-// Adapter for complex64 types on Bounded iterators. Provides a typecasting method 
+// Adapter for complex64 types on Bounded iterators. Provides a typecasting method
 // from interface{} to complex64.
 // Returns (value, false) if type is of complex64 type.
 // Returns (default value, true) if type is not of complex64 type.
@@ -115,7 +115,7 @@ func (a *BoundedItr) Complex64Or(def complex64) (complex64, bool) {
 	return v, false
 }
 
-// Adapter for complex64 types on RandomAccess iterator. Provides a typecasting method 
+// Adapter for complex64 types on RandomAccess iterator. Provides a typecasting method
 // from interface{} to complex64.
 // Panics if value is not of complex64 type.
 func (a *RandomAccessItr) Complex64() complex64 {
@@ -126,7 +126,7 @@ func (a *RandomAccessItr) Complex64() complex64 {
 	return v
 }
 
-// Adapter for complex64 types on RandomAccess iterators. Provides a typecasting method 
+// Adapter for complex64 types on RandomAccess iterators. Provides a typecasting method
 // from interface{} to complex64.
 // Returns (value, false) if type is of complex64 type.
 // Returns (default value, true) if type is not of complex64 type.

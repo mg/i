@@ -19,11 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package iadapt
+package ityped
 
 import "fmt"
 
-// Adapter for uint8 types on Forward iterators. Provides a typecasting method 
+// Adapter for uint8 types on Forward iterators. Provides a typecasting method
 // from interface{} to uint8.
 // Panics if value is not of uint8 type.
 func (a *ForwardItr) Uint8() uint8 {
@@ -34,7 +34,7 @@ func (a *ForwardItr) Uint8() uint8 {
 	return v
 }
 
-// Adapter for uint8 types on Forward iterators. Provides a typecasting method 
+// Adapter for uint8 types on Forward iterators. Provides a typecasting method
 // from interface{} to uint8.
 // Returns (value, false) if type is of uint8 type.
 // Returns (default value, true) if type is not of uint8 type.
@@ -46,7 +46,7 @@ func (a *ForwardItr) Uint8Or(def uint8) (uint8, bool) {
 	return v, false
 }
 
-// Adapter for uint8 types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for uint8 types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to uint8.
 // Panics if value is not of uint8 type.
 func (a *BiDirectionalItr) Uint8() uint8 {
@@ -57,7 +57,7 @@ func (a *BiDirectionalItr) Uint8() uint8 {
 	return v
 }
 
-// Adapter for uint8 types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for uint8 types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to uint8.
 // Returns (value, false) if type is of uint8 type.
 // Returns (default value, true) if type is not of uint8 type.
@@ -69,7 +69,7 @@ func (a *BiDirectionalItr) Uint8Or(def uint8) (uint8, bool) {
 	return v, false
 }
 
-// Adapter for uint8 types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for uint8 types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to uint8.
 // Panics if value is not of uint8 type.
 func (a *BoundedAtStartItr) Uint8() uint8 {
@@ -80,7 +80,7 @@ func (a *BoundedAtStartItr) Uint8() uint8 {
 	return v
 }
 
-// Adapter for uint8 types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for uint8 types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to uint8.
 // Returns (value, false) if type is of uint8 type.
 // Returns (default value, true) if type is not of uint8 type.
@@ -92,7 +92,7 @@ func (a *BoundedAtStartItr) Uint8Or(def uint8) (uint8, bool) {
 	return v, false
 }
 
-// Adapter for uint8 types on Bounded iterators. Provides a typecasting method 
+// Adapter for uint8 types on Bounded iterators. Provides a typecasting method
 // from interface{} to uint8.
 // Panics if value is not of uint8 type.
 func (a *BoundedItr) Uint8() uint8 {
@@ -103,7 +103,7 @@ func (a *BoundedItr) Uint8() uint8 {
 	return v
 }
 
-// Adapter for uint8 types on Bounded iterators. Provides a typecasting method 
+// Adapter for uint8 types on Bounded iterators. Provides a typecasting method
 // from interface{} to uint8.
 // Returns (value, false) if type is of uint8 type.
 // Returns (default value, true) if type is not of uint8 type.
@@ -115,7 +115,7 @@ func (a *BoundedItr) Uint8Or(def uint8) (uint8, bool) {
 	return v, false
 }
 
-// Adapter for uint8 types on RandomAccess iterator. Provides a typecasting method 
+// Adapter for uint8 types on RandomAccess iterator. Provides a typecasting method
 // from interface{} to uint8.
 // Panics if value is not of uint8 type.
 func (a *RandomAccessItr) Uint8() uint8 {
@@ -126,7 +126,7 @@ func (a *RandomAccessItr) Uint8() uint8 {
 	return v
 }
 
-// Adapter for uint8 types on RandomAccess iterators. Provides a typecasting method 
+// Adapter for uint8 types on RandomAccess iterators. Provides a typecasting method
 // from interface{} to uint8.
 // Returns (value, false) if type is of uint8 type.
 // Returns (default value, true) if type is not of uint8 type.

@@ -19,11 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package iadapt
+package ityped
 
 import "fmt"
 
-// Adapter for uint32 types on Forward iterators. Provides a typecasting method 
+// Adapter for uint32 types on Forward iterators. Provides a typecasting method
 // from interface{} to uint32.
 // Panics if value is not of uint32 type.
 func (a *ForwardItr) Uint32() uint32 {
@@ -34,7 +34,7 @@ func (a *ForwardItr) Uint32() uint32 {
 	return v
 }
 
-// Adapter for uint32 types on Forward iterators. Provides a typecasting method 
+// Adapter for uint32 types on Forward iterators. Provides a typecasting method
 // from interface{} to uint32.
 // Returns (value, false) if type is of uint32 type.
 // Returns (default value, true) if type is not of uint32 type.
@@ -46,7 +46,7 @@ func (a *ForwardItr) Uint32Or(def uint32) (uint32, bool) {
 	return v, false
 }
 
-// Adapter for uint32 types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for uint32 types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to uint32.
 // Panics if value is not of uint32 type.
 func (a *BiDirectionalItr) Uint32() uint32 {
@@ -57,7 +57,7 @@ func (a *BiDirectionalItr) Uint32() uint32 {
 	return v
 }
 
-// Adapter for uint32 types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for uint32 types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to uint32.
 // Returns (value, false) if type is of uint32 type.
 // Returns (default value, true) if type is not of uint32 type.
@@ -69,7 +69,7 @@ func (a *BiDirectionalItr) Uint32Or(def uint32) (uint32, bool) {
 	return v, false
 }
 
-// Adapter for uint32 types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for uint32 types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to uint32.
 // Panics if value is not of uint32 type.
 func (a *BoundedAtStartItr) Uint32() uint32 {
@@ -80,7 +80,7 @@ func (a *BoundedAtStartItr) Uint32() uint32 {
 	return v
 }
 
-// Adapter for uint32 types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for uint32 types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to uint32.
 // Returns (value, false) if type is of uint32 type.
 // Returns (default value, true) if type is not of uint32 type.
@@ -92,7 +92,7 @@ func (a *BoundedAtStartItr) Uint32Or(def uint32) (uint32, bool) {
 	return v, false
 }
 
-// Adapter for uint32 types on Bounded iterators. Provides a typecasting method 
+// Adapter for uint32 types on Bounded iterators. Provides a typecasting method
 // from interface{} to uint32.
 // Panics if value is not of uint32 type.
 func (a *BoundedItr) Uint32() uint32 {
@@ -103,7 +103,7 @@ func (a *BoundedItr) Uint32() uint32 {
 	return v
 }
 
-// Adapter for uint32 types on Bounded iterators. Provides a typecasting method 
+// Adapter for uint32 types on Bounded iterators. Provides a typecasting method
 // from interface{} to uint32.
 // Returns (value, false) if type is of uint32 type.
 // Returns (default value, true) if type is not of uint32 type.
@@ -115,7 +115,7 @@ func (a *BoundedItr) Uint32Or(def uint32) (uint32, bool) {
 	return v, false
 }
 
-// Adapter for uint32 types on RandomAccess iterator. Provides a typecasting method 
+// Adapter for uint32 types on RandomAccess iterator. Provides a typecasting method
 // from interface{} to uint32.
 // Panics if value is not of uint32 type.
 func (a *RandomAccessItr) Uint32() uint32 {
@@ -126,7 +126,7 @@ func (a *RandomAccessItr) Uint32() uint32 {
 	return v
 }
 
-// Adapter for uint32 types on RandomAccess iterators. Provides a typecasting method 
+// Adapter for uint32 types on RandomAccess iterators. Provides a typecasting method
 // from interface{} to uint32.
 // Returns (value, false) if type is of uint32 type.
 // Returns (default value, true) if type is not of uint32 type.

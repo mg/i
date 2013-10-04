@@ -19,11 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package iadapt
+package ityped
 
 import "fmt"
 
-// Adapter for int types on Forward iterators. Provides a typecasting method 
+// Adapter for int types on Forward iterators. Provides a typecasting method
 // from interface{} to int.
 // Panics if value is not of int type.
 func (a *ForwardItr) Int() int {
@@ -34,7 +34,7 @@ func (a *ForwardItr) Int() int {
 	return v
 }
 
-// Adapter for int types on Forward iterators. Provides a typecasting method 
+// Adapter for int types on Forward iterators. Provides a typecasting method
 // from interface{} to int.
 // Returns (value, false) if type is of int type.
 // Returns (default value, true) if type is not of int type.
@@ -46,7 +46,7 @@ func (a *ForwardItr) IntOr(def int) (int, bool) {
 	return v, false
 }
 
-// Adapter for int types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for int types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to int.
 // Panics if value is not of int type.
 func (a *BiDirectionalItr) Int() int {
@@ -57,7 +57,7 @@ func (a *BiDirectionalItr) Int() int {
 	return v
 }
 
-// Adapter for int types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for int types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to int.
 // Returns (value, false) if type is of int type.
 // Returns (default value, true) if type is not of int type.
@@ -69,7 +69,7 @@ func (a *BiDirectionalItr) IntOr(def int) (int, bool) {
 	return v, false
 }
 
-// Adapter for int types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for int types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to int.
 // Panics if value is not of int type.
 func (a *BoundedAtStartItr) Int() int {
@@ -80,7 +80,7 @@ func (a *BoundedAtStartItr) Int() int {
 	return v
 }
 
-// Adapter for int types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for int types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to int.
 // Returns (value, false) if type is of int type.
 // Returns (default value, true) if type is not of int type.
@@ -92,7 +92,7 @@ func (a *BoundedAtStartItr) IntOr(def int) (int, bool) {
 	return v, false
 }
 
-// Adapter for int types on Bounded iterators. Provides a typecasting method 
+// Adapter for int types on Bounded iterators. Provides a typecasting method
 // from interface{} to int.
 // Panics if value is not of int type.
 func (a *BoundedItr) Int() int {
@@ -103,7 +103,7 @@ func (a *BoundedItr) Int() int {
 	return v
 }
 
-// Adapter for int types on Bounded iterators. Provides a typecasting method 
+// Adapter for int types on Bounded iterators. Provides a typecasting method
 // from interface{} to int.
 // Returns (value, false) if type is of int type.
 // Returns (default value, true) if type is not of int type.
@@ -115,7 +115,7 @@ func (a *BoundedItr) IntOr(def int) (int, bool) {
 	return v, false
 }
 
-// Adapter for int types on RandomAccess iterator. Provides a typecasting method 
+// Adapter for int types on RandomAccess iterator. Provides a typecasting method
 // from interface{} to int.
 // Panics if value is not of int type.
 func (a *RandomAccessItr) Int() int {
@@ -126,7 +126,7 @@ func (a *RandomAccessItr) Int() int {
 	return v
 }
 
-// Adapter for int types on RandomAccess iterators. Provides a typecasting method 
+// Adapter for int types on RandomAccess iterators. Provides a typecasting method
 // from interface{} to int.
 // Returns (value, false) if type is of int type.
 // Returns (default value, true) if type is not of int type.

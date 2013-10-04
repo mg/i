@@ -19,28 +19,28 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package iadapt
+package icon
 
 import (
 	"fmt"
-	"github.com/mg/i/icon"
 	"github.com/mg/i/itesting"
+	"github.com/mg/i/ityped"
 	"testing"
 )
 
 func TestAdapt(t *testing.T) {
-	list := icon.IntList(1, 2, 3, 4, 5, 6, 7, 8, 9)
-	itesting.AssertForward(t, Forward(list), 9, itesting.Strict)
+	list := IntList(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	itesting.AssertForward(t, ityped.Forward(list), 9, itesting.Strict)
 	list.First()
-	itesting.AssertIteration(t, Forward(list), 1, 2, 3, 4, 5, 6, 7, 8, 9)
+	itesting.AssertIteration(t, ityped.Forward(list), 1, 2, 3, 4, 5, 6, 7, 8, 9)
 }
 
 func ExampleForwardItr() {
 	// Underlying data stream
-	list := icon.IntList(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	list := IntList(1, 2, 3, 4, 5, 6, 7, 8, 9)
 
 	// Create an adapter
-	itr := Forward(list)
+	itr := ityped.Forward(list)
 
 	// Loop and print
 	for ; !itr.AtEnd(); itr.Next() {
@@ -50,10 +50,10 @@ func ExampleForwardItr() {
 
 func ExampleBiDirectionalItr() {
 	// Underlying data stream
-	list := icon.BoolList(true, true, false, true)
+	list := BoolList(true, true, false, true)
 
 	// Create an adapter
-	itr := BiDirectional(list)
+	itr := ityped.BiDirectional(list)
 
 	// Loop and print
 	for ; !itr.AtEnd(); itr.Next() {
@@ -63,10 +63,10 @@ func ExampleBiDirectionalItr() {
 
 func ExampleBoundedAtStartItr() {
 	// Underlying data stream
-	list := icon.Float64List(0.1, 1.005, 6.28, 4.233)
+	list := Float64List(0.1, 1.005, 6.28, 4.233)
 
 	// Create an adapter
-	itr := BoundedAtStart(list)
+	itr := ityped.BoundedAtStart(list)
 
 	// Loop and print
 	for ; !itr.AtEnd(); itr.Next() {
@@ -76,10 +76,10 @@ func ExampleBoundedAtStartItr() {
 
 func ExampleBoundedItr() {
 	// Underlying data stream
-	list := icon.Complex64List(1+1i, 0.1-4i, 70+35i)
+	list := Complex64List(1+1i, 0.1-4i, 70+35i)
 
 	// Create an adapter
-	itr := Bounded(list)
+	itr := ityped.Bounded(list)
 
 	// Loop and print
 	for ; !itr.AtEnd(); itr.Next() {
@@ -89,10 +89,10 @@ func ExampleBoundedItr() {
 
 func ExampleRandomAccessItr() {
 	// Underlying data stream
-	list := icon.StringList("aa", "bb", "cc", "dd")
+	list := StringList("aa", "bb", "cc", "dd")
 
 	// Create an adapter
-	itr := RandomAccess(list)
+	itr := ityped.RandomAccess(list)
 
 	// Loop and print
 	for ; !itr.AtEnd(); itr.Next() {

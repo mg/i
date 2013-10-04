@@ -20,5 +20,17 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // The Iterator Typed package (ityped) provides typed variants of all iterator
-// interfaces in the i package.
+// interfaces in the i package. It also provides adaptors that give access to
+// functions that return the current value from the adapted iterator in a typed
+// way.
+//
+// The purpose of the adapters is to be added to the end of a chain of iterators
+// to typecast the final value of the chain. The only function they provide are
+// various typed functions that access the value of the iterator and perform
+// a type assertion and return the resulting value. Every function comes in two
+// forms. E.g the boolean variant is Bool(), which returns the value as a bolean
+// value or panics if it fails the type assertion, or BoolOr(bool), witch returns
+// the boolean value of the iterator and true if the type assertions succedes and
+// returns the supplied boolean value and false if the type assertion fails. This
+// pattern is repeated for all the basic types of Go.
 package ityped

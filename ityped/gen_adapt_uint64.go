@@ -19,11 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-package iadapt
+package ityped
 
 import "fmt"
 
-// Adapter for uint64 types on Forward iterators. Provides a typecasting method 
+// Adapter for uint64 types on Forward iterators. Provides a typecasting method
 // from interface{} to uint64.
 // Panics if value is not of uint64 type.
 func (a *ForwardItr) Uint64() uint64 {
@@ -34,7 +34,7 @@ func (a *ForwardItr) Uint64() uint64 {
 	return v
 }
 
-// Adapter for uint64 types on Forward iterators. Provides a typecasting method 
+// Adapter for uint64 types on Forward iterators. Provides a typecasting method
 // from interface{} to uint64.
 // Returns (value, false) if type is of uint64 type.
 // Returns (default value, true) if type is not of uint64 type.
@@ -46,7 +46,7 @@ func (a *ForwardItr) Uint64Or(def uint64) (uint64, bool) {
 	return v, false
 }
 
-// Adapter for uint64 types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for uint64 types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to uint64.
 // Panics if value is not of uint64 type.
 func (a *BiDirectionalItr) Uint64() uint64 {
@@ -57,7 +57,7 @@ func (a *BiDirectionalItr) Uint64() uint64 {
 	return v
 }
 
-// Adapter for uint64 types on BiDirectional iterators. Provides a typecasting method 
+// Adapter for uint64 types on BiDirectional iterators. Provides a typecasting method
 // from interface{} to uint64.
 // Returns (value, false) if type is of uint64 type.
 // Returns (default value, true) if type is not of uint64 type.
@@ -69,7 +69,7 @@ func (a *BiDirectionalItr) Uint64Or(def uint64) (uint64, bool) {
 	return v, false
 }
 
-// Adapter for uint64 types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for uint64 types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to uint64.
 // Panics if value is not of uint64 type.
 func (a *BoundedAtStartItr) Uint64() uint64 {
@@ -80,7 +80,7 @@ func (a *BoundedAtStartItr) Uint64() uint64 {
 	return v
 }
 
-// Adapter for uint64 types on BoundedAtStart iterators. Provides a typecasting method 
+// Adapter for uint64 types on BoundedAtStart iterators. Provides a typecasting method
 // from interface{} to uint64.
 // Returns (value, false) if type is of uint64 type.
 // Returns (default value, true) if type is not of uint64 type.
@@ -92,7 +92,7 @@ func (a *BoundedAtStartItr) Uint64Or(def uint64) (uint64, bool) {
 	return v, false
 }
 
-// Adapter for uint64 types on Bounded iterators. Provides a typecasting method 
+// Adapter for uint64 types on Bounded iterators. Provides a typecasting method
 // from interface{} to uint64.
 // Panics if value is not of uint64 type.
 func (a *BoundedItr) Uint64() uint64 {
@@ -103,7 +103,7 @@ func (a *BoundedItr) Uint64() uint64 {
 	return v
 }
 
-// Adapter for uint64 types on Bounded iterators. Provides a typecasting method 
+// Adapter for uint64 types on Bounded iterators. Provides a typecasting method
 // from interface{} to uint64.
 // Returns (value, false) if type is of uint64 type.
 // Returns (default value, true) if type is not of uint64 type.
@@ -115,7 +115,7 @@ func (a *BoundedItr) Uint64Or(def uint64) (uint64, bool) {
 	return v, false
 }
 
-// Adapter for uint64 types on RandomAccess iterator. Provides a typecasting method 
+// Adapter for uint64 types on RandomAccess iterator. Provides a typecasting method
 // from interface{} to uint64.
 // Panics if value is not of uint64 type.
 func (a *RandomAccessItr) Uint64() uint64 {
@@ -126,7 +126,7 @@ func (a *RandomAccessItr) Uint64() uint64 {
 	return v
 }
 
-// Adapter for uint64 types on RandomAccess iterators. Provides a typecasting method 
+// Adapter for uint64 types on RandomAccess iterators. Provides a typecasting method
 // from interface{} to uint64.
 // Returns (value, false) if type is of uint64 type.
 // Returns (default value, true) if type is not of uint64 type.

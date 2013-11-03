@@ -31,28 +31,186 @@ import (
 type MapFunc func(i.Iterator) interface{}
 
 type imap struct {
-	itk.WForward
-	fmap MapFunc
+	mapf MapFunc
 	val  interface{}
 }
 
-// A map iterator that maps a underlying data stream to a new
+type fmap struct {
+	imap
+	itk.WForward
+}
+
+// A forward map iterator that maps a underlying data stream to a new
 // data stream according to the computation provied by the
 // mapping function.
-func Map(fmap MapFunc, itr i.Forward) i.Forward {
-	m := imap{fmap: fmap}
+func Map(mapf MapFunc, itr i.Forward) i.Forward {
+	m := fmap{}
+	m.mapf = mapf
 	m.WForward = *(itk.WrapForward(itr))
 	return &m
 }
 
-func (m *imap) Next() error {
+func (m *fmap) Next() error {
 	m.val = nil
 	return m.WForward.Next()
 }
 
-func (m *imap) Value() interface{} {
+func (m *fmap) Value() interface{} {
 	if m.val == nil {
-		m.val = m.fmap(&m.WForward)
+		m.val = m.mapf(&m.WForward)
+	}
+	return m.val
+}
+
+type bimap struct {
+	imap
+	itk.WBiDirectional
+}
+
+// A bidirectional map iterator that maps a underlying data stream to a new
+// data stream according to the computation provied by the
+// mapping function.
+func BiMap(mapf MapFunc, itr i.BiDirectional) i.BiDirectional {
+	m := bimap{}
+	m.mapf = mapf
+	m.WBiDirectional = *(itk.WrapBiDirectional(itr))
+	return &m
+}
+
+func (m *bimap) Next() error {
+	m.val = nil
+	return m.WBiDirectional.Next()
+}
+
+func (m *bimap) Prev() error {
+	m.val = nil
+	return m.WBiDirectional.Prev()
+}
+
+func (m *bimap) Value() interface{} {
+	if m.val == nil {
+		m.val = m.mapf(&m.WBiDirectional)
+	}
+	return m.val
+}
+
+type basmap struct {
+	imap
+	itk.WBoundedAtStart
+}
+
+// A bounded at start map iterator that maps a underlying data stream to a new
+// data stream according to the computation provied by the
+// mapping function.
+func BasMap(mapf MapFunc, itr i.BoundedAtStart) i.BoundedAtStart {
+	m := basmap{}
+	m.mapf = mapf
+	m.WBoundedAtStart = *(itk.WrapBoundedAtStart(itr))
+	return &m
+}
+
+func (m *basmap) First() error {
+	m.val = nil
+	return m.WBoundedAtStart.First()
+}
+
+func (m *basmap) Next() error {
+	m.val = nil
+	return m.WBoundedAtStart.Next()
+}
+
+func (m *basmap) Value() interface{} {
+	if m.val == nil {
+		m.val = m.mapf(&m.WBoundedAtStart)
+	}
+	return m.val
+}
+
+type bmap struct {
+	imap
+	itk.WBounded
+}
+
+// A bounded map iterator that maps a underlying data stream to a new
+// data stream according to the computation provied by the
+// mapping function.
+func BMap(mapf MapFunc, itr i.Bounded) i.Bounded {
+	m := bmap{}
+	m.mapf = mapf
+	m.WBounded = *(itk.WrapBounded(itr))
+	return &m
+}
+
+func (m *bmap) First() error {
+	m.val = nil
+	return m.WBounded.First()
+}
+
+func (m *bmap) Last() error {
+	m.val = nil
+	return m.WBounded.Last()
+}
+
+func (m *bmap) Next() error {
+	m.val = nil
+	return m.WBounded.Next()
+}
+
+func (m *bmap) Prev() error {
+	m.val = nil
+	return m.WBounded.Prev()
+}
+
+func (m *bmap) Value() interface{} {
+	if m.val == nil {
+		m.val = m.mapf(&m.WBounded)
+	}
+	return m.val
+}
+
+type ramap struct {
+	imap
+	itk.WRandomAccess
+}
+
+// A random access map iterator that maps a underlying data stream to a new
+// data stream according to the computation provied by the
+// mapping function.
+func RaMap(mapf MapFunc, itr i.RandomAccess) i.RandomAccess {
+	m := ramap{}
+	m.mapf = mapf
+	m.WRandomAccess = *(itk.WrapRandomAccess(itr))
+	return &m
+}
+
+func (m *ramap) First() error {
+	m.val = nil
+	return m.WRandomAccess.First()
+}
+
+func (m *ramap) Last() error {
+	m.val = nil
+	return m.WRandomAccess.Last()
+}
+
+func (m *ramap) Next() error {
+	m.val = nil
+	return m.WRandomAccess.Next()
+}
+
+func (m *ramap) Prev() error {
+	m.val = nil
+	return m.WRandomAccess.Prev()
+}
+
+func (m *ramap) Goto(idx int) error {
+	m.val = nil
+	return m.WRandomAccess.Goto(idx)
+}
+
+func (m *ramap) Value() interface{} {
+	if m.val == nil {
+		m.val = m.mapf(&m.WRandomAccess)
 	}
 	return m.val
 }
